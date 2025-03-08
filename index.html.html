@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Delivery Note</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .delivery-note {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .delivery-note h2 {
+            text-align: center;
+        }
+        .delivery-note table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .delivery-note table, .delivery-note th, .delivery-note td {
+            border: 1px solid #000;
+        }
+        .delivery-note th, .delivery-note td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .delivery-note textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+            overflow: hidden;
+        }
+        .delivery-note input[type="text"], .delivery-note input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .delivery-note {
+                padding: 10px;
+            }
+
+            .delivery-note table th, .delivery-note table td {
+                font-size: 14px;
+            }
+
+            .delivery-note input[type="text"], .delivery-note input[type="date"], .delivery-note textarea {
+                font-size: 14px;
+            }
+
+            .button-container button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .delivery-note table td input, .delivery-note table td textarea {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        /* For very small screens (phones in portrait mode) */
+        @media (max-width: 480px) {
+            .delivery-note h2 {
+                font-size: 18px;
+            }
+
+            .delivery-note table, .delivery-note th, .delivery-note td {
+                font-size: 12px;
+            }
+
+            .delivery-note input[type="text"], .delivery-note input[type="date"], .delivery-note textarea {
+                font-size: 12px;
+            }
+
+            .button-container button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="delivery-note" id="deliveryNote">
+    <h2>DELIVERY NOTE</h2>
+
+    <!-- Upper Table -->
+    <table>
+        <tr>
+            <td><strong>DATE:</strong></td>
+            <td><input type="date" value="2025-01-01"></td>
+            <td><strong>DELIVERY NOTE NO:</strong></td>
+            <td><input type="text" value="DN-C-000294"></td>
+        </tr>
+        <tr>
+            <td><strong>CUSTOMER NAME:</strong></td>
+            <td><input type="text" value="ZUMA CLUB LTD"></td>
+            <td><strong>DELIVERY TIME:</strong></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td><strong>ADDRESS:</strong></td>
+            <td colspan="3"><input type="text" value="Al Mustaqbal Street, DIFC Gate Village 6, Zuma Restaurant H Level"></td>
+        </tr>
+        <tr>
+            <td><strong>CONTACT PERSON:</strong></td>
+            <td><input type="text" value="Artur Dumoyan"></td>
+            <td><strong>SALES PERSON:</strong></td>
+            <td><input type="text" value="AIRIEN"></td>
+        </tr>
+    </table>
+
+    <!-- Lower Table -->
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>S.NO</th>
+                <th>ITEM DESCRIPTION</th>
+                <th>QUANTITY</th>
+                <th>UNIT</th>
+                <th>REMARK</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" value="1" class="sno" readonly></td>
+                <td><textarea>FOOD DELIVERY</textarea></td>
+                <td><textarea>55</textarea></td>
+                <td><textarea>PCS</textarea></td>
+                <td><textarea>STAFF MEAL</textarea></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Button to Download as PDF -->
+<div class="button-container">
+    <button onclick="downloadPDF()">Download as PDF</button>
+</div>
+
+<!-- Include html2pdf.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+    // JavaScript to add new rows on pressing the Tab key
+    document.getElementById('itemTable').addEventListener('keydown', function (event) {
+        if (event.key === 'Tab') {
+            const lastRow = this.querySelector('tbody tr:last-child');
+            const lastInput = lastRow.querySelector('textarea:last-child');
+
+            if (document.activeElement === lastInput) {
+                event.preventDefault();
+
+                const newRow = document.createElement('tr');
+
+                const snoCell = document.createElement('td');
+                const snoInput = document.createElement('input');
+                snoInput.type = 'text';
+                snoInput.className = 'sno';
+                snoInput.value = parseInt(lastRow.querySelector('.sno').value) + 1;
+                snoInput.readOnly = true;
+                snoCell.appendChild(snoInput);
+
+                const fields = ['ITEM DESCRIPTION', 'QUANTITY', 'UNIT', 'REMARK'];
+
+                fields.forEach(() => {
+                    const cell = document.createElement('td');
+                    const textarea = document.createElement('textarea');
+                    cell.appendChild(textarea);
+                    newRow.appendChild(cell);
+                });
+
+                newRow.prepend(snoCell);
+                this.querySelector('tbody').appendChild(newRow);
+                newRow.querySelector('textarea').focus();
+            }
+        }
+    });
+
+    // Auto-resize textarea height
+    document.addEventListener('input', function (event) {
+        if (event.target.tagName.toLowerCase() === 'textarea') {
+            event.target.style.height = 'auto';
+            event.target.style.height = (event.target.scrollHeight) + 'px';
+        }
+    });
+
+    // Function to download the content as PDF
+    function downloadPDF() {
+        const element = document.getElementById('deliveryNote');
+        const clientName = document.querySelector('input[value="ZUMA CLUB LTD"]').value || 'Client';
+        const sanitizedClientName = clientName.replace(/[\\/:*?"<>|]/g, '');
+
+        const opt = {
+            margin: 10,
+            filename: `${sanitizedClientName} - Delivery Note.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
+
+</body>
+</html>
