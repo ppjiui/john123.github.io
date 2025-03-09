@@ -1638,10 +1638,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Attach event listener to the "Clone" button
     const cloneButton = document.getElementById('clone-button');
-    cloneButton.addEventListener('click', syncQuotationToInvoice);
+    if (cloneButton) {
+        cloneButton.addEventListener('click', syncQuotationToInvoice);
+    }
 
-    // Initialize sync on page load
-    syncQuotationToInvoice();
+    // Do NOT call syncQuotationToInvoice() here to prevent it from running on page load
 });
 
 </script>
