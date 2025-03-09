@@ -1096,12 +1096,13 @@ function formatCurrency(amount) {
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	    font-size: 12px; /* Adjust as needed */
         }
         .invoice-header {
             text-align: center;
         }
         .invoice-title {
-            font-size: 24px;
+            font-size: 20px; /* Reduced from 24px */
             font-weight: bold;
             margin-top: 10px;
         }
@@ -1124,7 +1125,7 @@ function formatCurrency(amount) {
             border: 1px solid black;
         }
         .invoice-table th, .invoice-table td {
-            padding: 8px;
+            padding: 4px; /* Reduced from 8px */
             text-align: left;
         }
         .invoice-footer {
@@ -1133,6 +1134,7 @@ function formatCurrency(amount) {
             margin-top: 20px;
             text-align: center;
             width: 100%;
+	    font-size: 10px; /* Adjust as needed */
         }
         .invoice-footer-left {
             text-align: left;
@@ -1168,7 +1170,7 @@ function formatCurrency(amount) {
         }
         .invoice-merged-box .column {
             flex: 1;
-            padding: 0 10px;
+            padding: 0 5px; /* Reduced from 0 10px */
         }
         .invoice-merged-box .column:first-child {
             flex: 1.2;
@@ -1186,6 +1188,7 @@ function formatCurrency(amount) {
         .invoice-payment-terms-box {
             flex: 1; /* Takes up remaining space on the left */
             margin-right: 20px; /* Adds some spacing between the two boxes */
+	    padding: 5px; /* Adjust as needed */
         }
         .invoice-untaxed-table {
             flex: 0 0 auto; /* Prevents the table from growing or shrinking */
@@ -1197,7 +1200,7 @@ function formatCurrency(amount) {
         }
         .invoice-untaxed-table th, .invoice-untaxed-table td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 4px; /* Reduced from 8px */
             text-align: left;
         }
         .invoice-amount-paid-container {
@@ -1218,6 +1221,7 @@ function formatCurrency(amount) {
             border: 1px solid #000;
             margin-top: 20px;
             height: 120px;
+	    padding: 5px; /* Adjust as needed */
         }
         .invoice-box-left, .invoice-box-right {
             flex: 1;
@@ -1259,7 +1263,7 @@ function formatCurrency(amount) {
     </style>
 </head>
 <body class="invoice-body">
-    <button class="invoice-download-btn" onclick="invoiceDownloadPDF()">Download as PDF</button>
+    <button class="invoice-download-btn">Download as PDF</button>
     <button class="invoice-download-btn" onclick="invoiceAddRow()">Add Row</button>
     <button class="invoice-download-btn" onclick="invoiceRemoveRow()">Remove Row</button>
 
@@ -1327,7 +1331,9 @@ function formatCurrency(amount) {
 
         <div class="invoice-payment-untaxed-container">
             <div class="invoice-payment-terms-box">
-                <strong>Payment Terms:</strong> Immediate Payment<br><br>
+                <strong>Payment Terms:</strong> Immediate Payment 
+                <button id="clone-button" style="font-size: 12px; padding: 2px 5px; margin-left: 5px;">Clone</button>
+                <br><br>
                 <strong>Payment Communication:</strong> <span id="invoicePaymentCommunication">INV/2025/00024</span><br>
                 on this account: <strong>13587356930001 - ADCB - PAYMENT LINK</strong><br>
             </div>
@@ -1493,15 +1499,6 @@ function formatCurrency(amount) {
             document.getElementById('invoicePaymentCommunication').innerText = invoiceNumber;
         }
 
-        function invoiceDownloadPDF() {
-            const element = document.getElementById('invoice-page');
-            const clientName = document.getElementById('invoiceClientName').innerText.replace(/ /g, '_');
-            const invoiceNumber = document.getElementById('invoiceNumber').innerText.replace(/\//g, '_');
-            const fileName = `${clientName}_${invoiceNumber}.pdf`;
-
-            html2pdf().from(element).save(fileName);
-        }
-
         function invoiceAddRow() {
             const table = document.getElementById('invoiceItemTable');
             const rowCount = table.rows.length;
@@ -1646,8 +1643,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-<button id="clone-button" style="margin-top: -650px; position: absolute; down: 200px; right: 1080px;">Clone</button>
+<script>
+document.querySelector('.invoice-download-btn').addEventListener('click', () => {
+    // Get the "Clone" button
+    const cloneButton = document.getElementById('clone-button');
 
+    // Hide the "Clone" button before generating the PDF
+    if (cloneButton) {
+        cloneButton.style.visibility = 'hidden'; // Hide the button
+    }
+
+    // Generate the PDF
+    const element = document.getElementById('invoice-page'); // Target the invoice page
+    const clientName = document.getElementById('invoiceClientName').textContent.trim(); // Get client name from invoice
+    const fileName = clientName ? `${clientName}-Invoice.pdf` : 'Invoice.pdf';
+
+    const options = {
+        margin: 0.2,
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 1.5, // Adjust scale to fit content
+            letterRendering: true // Improve rendering for letter format
+        },
+        jsPDF: { 
+            unit: 'in', 
+            format: 'letter', 
+            orientation: 'portrait' 
+        }
+    };
+
+    // Add a small delay to ensure the button is hidden before the PDF is generated
+    setTimeout(() => {
+        html2pdf()
+            .from(element)
+            .set(options)
+            .save()
+            .then(() => {
+                // Restore the "Clone" button after PDF generation
+                if (cloneButton) {
+                    cloneButton.style.visibility = 'visible'; // Show the button again
+                }
+            })
+            .catch(err => {
+                console.error('Error generating PDF:', err);
+                // Restore the "Clone" button even if an error occurs
+                if (cloneButton) {
+                    cloneButton.style.visibility = 'visible'; // Show the button again
+                }
+            });
+    }, 100); // 100ms delay to ensure the button is hidden
+});
+</script>
 
 </body>
 </html>
