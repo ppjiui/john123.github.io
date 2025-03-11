@@ -850,7 +850,7 @@ function formatCurrency(amount) {
         </table>
     </div>
 
-<div class="section-container">
+    <div class="section-container">
         <div class="section">
             <div class="section-title">Kitchen Section</div>
             <div class="editable-section" contenteditable="true">
@@ -865,57 +865,8 @@ function formatCurrency(amount) {
             </div>
         </div>
     </div>
-
-    <!-- Divider Line -->
-    <hr style="border: 1px solid #ccc; margin: 20px 0;">
-
-    <!-- Function Sheet Button -->
-    <div style="text-align: center; margin-top: 20px;">
-        <button class="convert-to-pdf exclude-from-pdf">Function Sheet</button>
-    </div>
 </div>
-<script>
-    // Function to handle PDF generation for the Function Sheet
-    document.querySelector('.convert-to-pdf.exclude-from-pdf').addEventListener('click', () => {
-        const page3 = document.getElementById('page3'); // Select the Function Sheet page
-        const functionSheetButton = document.querySelector('.convert-to-pdf.exclude-from-pdf'); // Select the Function Sheet button
 
-        if (!page3) {
-            console.error("Page 3 element not found.");
-            return;
-        }
-
-        // Hide the Function Sheet button
-        functionSheetButton.style.visibility = 'hidden';
-
-        // Get client name from the editable field
-        const clientNameCell = document.querySelector('td.editable-field');
-        const clientName = clientNameCell ? clientNameCell.textContent.trim() : 'Client';
-
-        const options = {
-            margin: 0.2,
-            filename: `${clientName} - Function Sheet.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        // Generate the PDF
-        html2pdf()
-            .from(page3)
-            .set(options)
-            .save()
-            .then(() => {
-                // Show the Function Sheet button again after PDF generation
-                functionSheetButton.style.visibility = 'visible';
-            })
-            .catch(err => {
-                console.error('Error generating PDF:', err);
-                // Show the Function Sheet button again even if an error occurs
-                functionSheetButton.style.visibility = 'visible';
-            });
-    });
-</script>
 <script>
     // Select the "CLIENT NAME" field on the first page
     const clientNameField = document.querySelector('tr:nth-child(2) td.editable-field');
@@ -1054,6 +1005,47 @@ function formatCurrency(amount) {
                     element.contentEditable = "true"; // Ensure editable behavior for the element
                 }
             }
+        });
+    });
+</script>
+<button class="convert-to-pdf" style="position: absolute; down: 20px; right: 580px;">Function Sheet</button>
+<script>
+    // Wait for the DOM to load before attaching event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select the button using its class
+        const convertButtons = document.querySelectorAll('.convert-to-pdf');
+
+        // Add event listener to each button with the specified class
+        convertButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const page3 = document.getElementById('page3'); // Select the 3rd page
+                
+                if (!page3) {
+                    console.error("Page 3 element not found.");
+                    return;
+                }
+
+                // Capture the client's name from the editable table cell
+                const clientNameCell = document.querySelector('td.editable-field');
+                const clientName = clientNameCell ? clientNameCell.textContent.trim() : 'Client';
+
+                const options = {
+                    margin: 0.2,
+                    filename: `${clientName} - Function Sheet.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                // Generate the PDF for the 3rd page only
+                html2pdf()
+                    .from(page3)
+                    .set(options)
+                    .save()
+                    .catch(err => {
+                        console.error('Error generating PDF:', err);
+                    });
+            });
         });
     });
 </script>
