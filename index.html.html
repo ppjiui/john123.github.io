@@ -1659,7 +1659,12 @@ document.querySelector('.invoice-download-btn').addEventListener('click', () => 
     // Generate the PDF
     const element = document.getElementById('invoice-page'); // Target the invoice page
     const clientName = document.getElementById('invoiceClientName').textContent.trim(); // Get client name from invoice
-    const fileName = clientName ? `${clientName}-Invoice.pdf` : 'Invoice.pdf';
+    const invoiceNumber = document.getElementById('invoiceNumber').textContent.trim(); // Get invoice number
+    
+    // Create filename with format: "ClientName-INV/YYYY/XXXXX"
+    const fileName = clientName && invoiceNumber 
+        ? `${clientName}-${invoiceNumber.replace('Invoice No: ', '')}.pdf` 
+        : 'Invoice.pdf';
 
     const options = {
         margin: 0.2,
