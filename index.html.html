@@ -178,6 +178,9 @@
 	    margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
             line-height: 1; /* Adjust line height if needed */
+   	    margin-top: -50px; /* Move the title up */
+	    position: relative;
+            top: -50px; /* Move the title up */
         }
         .menu-page p {
             font-size: 18px;
@@ -232,6 +235,10 @@
         #download:hover {
             background-color: #218838;
         }
+	.page-break {
+    	   page-break-before: always; /* Forces a new page before this div */
+       	   break-before: page; /* Ensures compatibility with modern browsers */
+	}
     </style>
 </head>
 <body>
@@ -346,6 +353,7 @@
             <p class="terms-header"><strong>Cancellation Policy:</strong></p>
             <p>If canceled on the event day: 100% of the total amount is due.</p>
         </div>
+        <div class="page-break"></div>
         <button class="convert-pdf-button" id="convertToPDF">Convert to PDF</button>
         <button class="add-page-button" onclick="addPage()">Add Page</button>
 	<button class="save-html-button"style="position: absolute; down: 20px; right: 0px;">Save as HTML</button>
