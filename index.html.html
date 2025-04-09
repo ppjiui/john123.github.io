@@ -151,12 +151,6 @@
         .convert-pdf-button {
             float: right;
         }
-        .add-page-button {
-            margin-top: 10px;
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-        }
         .hide-in-pdf {
             display: none !important;
         }
@@ -178,9 +172,9 @@
 	    margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
             line-height: 1; /* Adjust line height if needed */
-   	    margin-top: -50px; /* Move the title up */
+   	    margin-top: -25px; /* Move the title up */
 	    position: relative;
-            top: -50px; /* Move the title up */
+            top: -25px; /* Move the title up */
         }
         .menu-page p {
             font-size: 18px;
@@ -235,10 +229,34 @@
         #download:hover {
             background-color: #218838;
         }
+#convertToPDF {
+    position: fixed; /* Sticks to the screen */
+    bottom: 20px;   /* 20px from bottom */
+    right: 20px;    /* 20px from right */
+    z-index: 1000;  /* Stays on top of everything */
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
 	.page-break {
     	   page-break-before: always; /* Forces a new page before this div */
        	   break-before: page; /* Ensures compatibility with modern browsers */
 	}
+.page-break {
+    page-break-before: always;
+    break-before: page;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#page2 {
+    page-break-before: avoid;
+    margin-top: 0;
+}
     </style>
 <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAM8AAABzBAMAAADNp0tiAAAAElBMVEW8j1NHcEwlHBBxVjEkHBCie0fOj2bZAAAABXRSTlP+AFXpnCkdkxwAAAOaSURBVGje7ZnLsqMgEECpstyP6A8AZu8V2U8w2VM38f9/ZXzE+GpEArKYSi+yUMKhnzSIkjDyB31BAUGUBAKxayhQGQh0eQYC/Y1IGFARhwHhIr4GAaUKlWFACFVBQBeEeBDQHaEHCQDCAqEoBCgrEPog7OxBbdCh+CcAiKFWylCgRwCQ6ED20WANwkUHso8Ga1AXCy2oPB3Uuwih5+kgMYCis0GDiz6IBltQpgaQdcragl4uQuj3ZJAYQdG5oNFF9k6yBakRZJuylqC3i6zr6gTCR2xxn0DPT0GZtHHRMSflBNKoIoezqBezkzCHQEld2rjoSCYxGMTMvU0xBxlth0UFRl3WlDaWMwd4qkoQhAvTGheWM9oOi/lS5nlUmLazYgkyrIupSAO6oMf1aHCbK3gmFg3tHJQaet2V5faLA+ZqcRaYg1pf7xlvrdC+7ZhaLmQOwvvNbqrQcZVawy3nWhTVbrPRGg+LDWdnMF+/XYB2u11AIb2l6+5tpd0m+rk0f4YU0qrExGbJC9Dg7kgeVUi3qkxso3+58Q1x9ZBHFYJVeo2NrnrQRftvpmBQXMGBsDlxLEHjdBtSplEIUP+te7kDepdnLgm0SEj4clE5H+f42QFNyd/w2UpxrdAxEmZT43fd64ImCzX8vbXjutjhtG6i48CcC12YrEDzuvngJSUkoTlHBnl0hsYLzKZLWoFSFU9Dm6bhrQhlAsX9ON40O3VwBcLGSY/KerNagwpfoFUsbFriuyd9Nqm4BjEU+0E9DU1+5slJm2q7Bvly0tpF22OL8AQiJhA7x0VbUOoHVBpBflJ220xtQeIUFwFnWC9OipJAoPIAKD2hooIgHykLNNbAPYNAyn8sQKDaXaPHoZsTdkYsQKDU1XIKOgoCIPdogL6YQZdOd//pCoPYCS4CQc5O+jkIcnUSeA4GLwYL7+mqAd1daoOCP8WAIKa8xwIMcuy5fg6D3KIB/sAN3xLX3CTVS6BXFiBKKcajeph2IuUtv/WS53Qmef56PEg7irrce+NOCMUUlhEzLMEFRFpIx5mT3lzZ6tEpI3sOIU43+YQMHALoI+Vg0UEfnLhqhAlsO5l3QuVLT5I4akR7GMagn+RkT/opCOsiYIy63m6zYLQBYXn7QOq6vlW32zXxmbA7UlqACu819QzQ73+n0RcUJBjucRPHSn3y08A7uQY07GVSI10B7X5WD4cnOXXbJpzlC/qCvqAvCAD9A6M7x+SW47sWAAAAAElFTkSuQmCC" type="image/x-icon">
 </head>
@@ -369,8 +387,6 @@
         </div>
         <div class="page-break"></div>
         <button class="convert-pdf-button" id="convertToPDF">Convert to PDF</button>
-        <button class="add-page-button" onclick="addPage()">Add Page</button>
-	<button class="save-html-button"style="position: absolute; down: 20px; right: 0px;">Save as HTML</button>
 	<button class="highlight-bold-button" onclick="highlightBold()">B</button>
 	<button class="toggle-columns-button">Switch to Double Column</button>
 	<div id="page2" class="container menu-page">
@@ -391,6 +407,9 @@
 #page2 {
     padding: 20px;
     box-sizing: border-box;
+}
+.menu-columns {
+    margin-top: -20px; /* This pulls the text up closer to the title */
 }
 
 /* General column styling for HTML display */
@@ -570,8 +589,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.remove-row-button'), // Quotation page buttons
         document.querySelector('.add-row-button'),
         document.querySelector('.convert-pdf-button'),
-        document.querySelector('.add-page-button'),
-        document.querySelector('.save-html-button'),
         document.querySelector('.highlight-bold-button'),
         document.querySelector('.toggle-columns-button'),
         document.querySelector('.convert-to-pdf'),
@@ -682,17 +699,6 @@ function formatCurrency(amount) {
                 tableBody.removeChild(rows[rows.length - 1]);
                 calculateTotals(); // Recalculate totals after removing a row
             }
-        }
-
-        // Add a new page to the document
-        function addPage() {
-            const newPage = document.createElement('div');
-            newPage.classList.add('container', 'menu-page');
-            newPage.innerHTML = ` 
-                <h2 class="editable" contenteditable="true">Menu</h2>
-                <p class="editable" contenteditable="true">Paste your menu content here.</p>
-            `;
-            document.body.appendChild(newPage);
         }
     </script>
 <script>
@@ -1724,6 +1730,381 @@ document.querySelector('.invoice-download-btn').addEventListener('click', () => 
             });
     }, 100); // 100ms delay to ensure the button is hidden
 });
+</script>
+<script>
+// Add this before closing </body> tag
+
+// Get all editable data while preserving structure and functionality
+function getAllEditableData() {
+    const data = {
+        version: '1.4',
+        timestamp: new Date().toISOString(),
+        sections: {}
+    };
+    
+    // 1. Capture Quotation Header Section
+    data.sections.quotationHeader = {
+        clientName: getElementContent('tr:nth-child(2) td.editable-field'),
+        contact: getElementContent('tr:nth-child(3) td.editable-field'),
+        address: getElementContent('tr:nth-child(4) td.editable-field'),
+        eventDate: getElementContent('#editable-date'),
+        eventTime: getElementContent('.event-time'),
+        currentDate: getElementContent('#current-date')
+    };
+    
+    // 2. Capture Items Table with editable states
+    data.sections.quotationItems = getTableDataWithEditState('#items-table tbody tr', 
+        ['description', 'unitPrice', 'quantity', 'amount']);
+    
+    // 3. Capture Invoice Table with editable states
+    data.sections.invoiceItems = getTableDataWithEditState('#invoiceItemTable tbody tr', 
+        ['sno', 'description', 'quantity', 'unitPrice', 'amount']);
+    
+    // 4. Capture Menu Page with complete structure
+    const menuPage = document.querySelector('#page2');
+    if (menuPage) {
+        data.sections.menuPage = {
+            html: menuPage.innerHTML,
+            isDoubleColumn: menuPage.querySelector('.menu-columns')?.classList.contains('double-column') || false
+        };
+    }
+    
+    // 5. Capture Function Sheet with complete structure
+    const functionSheet = document.querySelector('#page3');
+    if (functionSheet) data.sections.functionSheet = functionSheet.innerHTML;
+    
+    // 6. Capture Invoice with complete structure including clone button handler
+    const invoicePage = document.querySelector('#invoice-page');
+    if (invoicePage) {
+        data.sections.invoicePage = {
+            html: invoicePage.innerHTML,
+            hasCloneButton: !!document.getElementById('clone-button')
+        };
+    }
+    
+    return data;
+}
+
+// Helper functions
+function getElementContent(selector) {
+    const el = document.querySelector(selector);
+    if (!el) return null;
+    return {
+        text: el.textContent.trim(),
+        html: el.innerHTML,
+        isEditable: el.contentEditable === 'true'
+    };
+}
+
+function getTableDataWithEditState(rowSelector, columns) {
+    const rows = document.querySelectorAll(rowSelector);
+    return Array.from(rows).map(row => {
+        const rowData = {};
+        const cells = row.querySelectorAll('td');
+        cells.forEach((cell, index) => {
+            const colName = columns[index] || index;
+            rowData[colName] = {
+                text: cell.textContent.trim(),
+                html: cell.innerHTML,
+                isEditable: cell.contentEditable === 'true',
+                hasOnInput: cell.hasAttribute('oninput')
+            };
+        });
+        return rowData;
+    });
+}
+
+// Restore all data with original functionality
+function restoreAllData(data) {
+    if (!data || !data.sections) {
+        alert('Invalid data format');
+        return;
+    }
+
+    // 1. Restore Quotation Header
+    restoreElementContent('tr:nth-child(2) td.editable-field', data.sections.quotationHeader?.clientName);
+    restoreElementContent('tr:nth-child(3) td.editable-field', data.sections.quotationHeader?.contact);
+    restoreElementContent('tr:nth-child(4) td.editable-field', data.sections.quotationHeader?.address);
+    restoreElementContent('#editable-date', data.sections.quotationHeader?.eventDate);
+    restoreElementContent('.event-time', data.sections.quotationHeader?.eventTime);
+    restoreElementContent('#current-date', data.sections.quotationHeader?.currentDate);
+    
+    // 2. Restore Quotation Items Table with non-editable amount cells
+    const quotationTable = document.querySelector('#items-table tbody');
+    if (quotationTable && data.sections.quotationItems) {
+        quotationTable.innerHTML = '';
+        data.sections.quotationItems.forEach(item => {
+            const row = quotationTable.insertRow();
+            row.innerHTML = `
+                <td contenteditable="true">${item.description?.html || ''}</td>
+                <td contenteditable="true">${item.unitPrice?.html || '0'}</td>
+                <td contenteditable="true">${item.quantity?.html || '0'}</td>
+                <td contenteditable="false">${item.amount?.html || '0'}</td>
+            `;
+        });
+    }
+    
+    // 3. Restore Invoice Items Table
+    const invoiceTable = document.querySelector('#invoiceItemTable tbody');
+    if (invoiceTable && data.sections.invoiceItems) {
+        invoiceTable.innerHTML = '';
+        data.sections.invoiceItems.forEach((item, index) => {
+            const row = invoiceTable.insertRow();
+            const rowHTML = `
+                <td>${index + 1}</td>
+                <td contenteditable="true">${item.description?.html || ''}</td>
+                <td contenteditable="true" ${item.quantity?.hasOnInput ? 'oninput="invoiceCalculateTotal()"' : ''}>
+                    ${item.quantity?.html || '0'}
+                </td>
+                <td contenteditable="true" ${item.unitPrice?.hasOnInput ? 'oninput="invoiceCalculateTotal()"' : ''}>
+                    ${item.unitPrice?.html || '0'}
+                </td>
+                <td class="invoice-amount">${item.amount?.html || '0'}</td>
+            `;
+            row.innerHTML = rowHTML;
+        });
+    }
+    
+    // 4. Restore Menu Page
+    const menuPage = document.querySelector('#page2');
+    if (menuPage && data.sections.menuPage) {
+        menuPage.innerHTML = data.sections.menuPage.html;
+        const menuColumns = menuPage.querySelector('.menu-columns');
+        if (menuColumns) {
+            menuColumns.classList.remove('single-column', 'double-column');
+            menuColumns.classList.add(data.sections.menuPage.isDoubleColumn ? 'double-column' : 'single-column');
+        }
+    }
+    
+    // 5. Restore Function Sheet
+    const functionSheet = document.querySelector('#page3');
+    if (functionSheet && data.sections.functionSheet) {
+        functionSheet.innerHTML = data.sections.functionSheet;
+    }
+    
+    // 6. Restore Invoice Page with clone button handler
+    const invoicePage = document.querySelector('#invoice-page');
+    if (invoicePage && data.sections.invoicePage) {
+        invoicePage.innerHTML = data.sections.invoicePage.html;
+        
+        // Reattach clone button handler if it existed
+        if (data.sections.invoicePage.hasCloneButton) {
+            const cloneButton = document.getElementById('clone-button');
+            if (cloneButton) {
+                cloneButton.addEventListener('click', function() {
+                    // Get the current quotation items
+                    const quotationItems = [];
+                    document.querySelectorAll("#items-table tbody tr").forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        quotationItems.push({
+                            description: cells[0].textContent.trim(),
+                            unitPrice: cells[1].textContent.trim(),
+                            quantity: cells[2].textContent.trim(),
+                            amount: cells[3].textContent.trim()
+                        });
+                    });
+                    
+                    // Populate the invoice table
+                    const invoiceTable = document.querySelector("#invoiceItemTable tbody");
+                    if (invoiceTable) {
+                        invoiceTable.innerHTML = '';
+                        quotationItems.forEach((item, index) => {
+                            const row = invoiceTable.insertRow();
+                            row.innerHTML = `
+                                <td>${index + 1}</td>
+                                <td contenteditable="true">${item.description}</td>
+                                <td contenteditable="true" oninput="invoiceCalculateTotal()">${item.quantity}</td>
+                                <td contenteditable="true" oninput="invoiceCalculateTotal()">${item.unitPrice}</td>
+                                <td class="invoice-amount">${item.amount}</td>
+                            `;
+                        });
+                        if (typeof invoiceCalculateTotal === 'function') invoiceCalculateTotal();
+                    }
+                });
+            }
+        }
+    }
+    
+    // Reattach event listeners and recalculate
+    setTimeout(() => {
+        // Reattach quotation table listeners and make amount cells non-editable
+        document.querySelectorAll("#items-table tbody tr").forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length > 3) {
+                cells[0].contentEditable = 'true'; // Description
+                cells[1].contentEditable = 'true'; // Unit Price
+                cells[2].contentEditable = 'true'; // Quantity
+                cells[3].contentEditable = 'false'; // Amount (non-editable)
+                
+                // Add event listeners to editable cells
+                cells[0].addEventListener('input', calculateTotals);
+                cells[1].addEventListener('input', calculateTotals);
+                cells[2].addEventListener('input', calculateTotals);
+            }
+        });
+        
+        // Recalculate all totals
+        if (typeof calculateTotals === 'function') calculateTotals();
+        if (typeof invoiceCalculateTotal === 'function') invoiceCalculateTotal();
+    }, 100);
+}
+
+function restoreElementContent(selector, contentData) {
+    const el = document.querySelector(selector);
+    if (!el || !contentData) return;
+    
+    if (contentData.isEditable) {
+        el.contentEditable = 'true';
+    } else {
+        el.contentEditable = 'false';
+    }
+    el.innerHTML = contentData.html || contentData.text || '';
+}
+
+// Export function with improved filename format
+function exportData() {
+    try {
+        const data = getAllEditableData();
+        const clientName = (data.sections.quotationHeader?.clientName?.text || 'client')
+            .replace(/[^a-z0-9- ]/gi, '') // Remove special chars
+            .replace(/\s+/g, ' ') // Collapse multiple spaces
+            .trim()
+            .substring(0, 50); // Limit length
+        
+        // Format date as DD-MM-YYYY HH-MM
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const dateTimeStr = `${day}-${month}-${year} ${hours}-${minutes}`;
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${clientName} ${dateTimeStr}.json`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    } catch (error) {
+        alert('Export failed: ' + error.message);
+        console.error(error);
+    }
+}
+
+// Import function
+function importData() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = event => {
+            try {
+                const data = JSON.parse(event.target.result);
+                restoreAllData(data);
+                alert('Data imported successfully!');
+            } catch (error) {
+                alert('Error importing file: ' + error.message);
+                console.error(error);
+            }
+        };
+        reader.onerror = () => alert('Error reading file');
+        reader.readAsText(file);
+    };
+    
+    input.click();
+}
+
+// Add buttons to the page
+function addDataButtons() {
+    // Remove existing buttons if any
+    const existingContainer = document.getElementById('data-buttons-container');
+    if (existingContainer) existingContainer.remove();
+    
+    const container = document.createElement('div');
+    container.id = 'data-buttons-container';
+    container.style.position = 'fixed';
+    container.style.bottom = '580px';
+    container.style.left = '1090px';
+    container.style.zIndex = '10000';
+    container.style.display = 'flex';
+    container.style.gap = '10px';
+    container.style.backgroundColor = 'white';
+    container.style.padding = '10px';
+    container.style.borderRadius = '5px';
+    container.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+    
+    const exportBtn = document.createElement('button');
+    exportBtn.innerHTML = '<i class="fas fa-save"></i> Export All';
+    exportBtn.style.padding = '8px 12px';
+    exportBtn.style.background = '#4CAF50';
+    exportBtn.style.color = 'white';
+    exportBtn.style.border = 'none';
+    exportBtn.style.borderRadius = '4px';
+    exportBtn.style.cursor = 'pointer';
+    exportBtn.onclick = exportData;
+    
+    const importBtn = document.createElement('button');
+    importBtn.innerHTML = '<i class="fas fa-file-import"></i> Import All';
+    importBtn.style.padding = '8px 12px';
+    importBtn.style.background = '#2196F3';
+    importBtn.style.color = 'white';
+    importBtn.style.border = 'none';
+    importBtn.style.borderRadius = '4px';
+    importBtn.style.cursor = 'pointer';
+    importBtn.onclick = importData;
+    
+    container.appendChild(exportBtn);
+    container.appendChild(importBtn);
+    document.body.appendChild(container);
+}
+
+// Initialize when page loads
+if (document.readyState === 'complete') {
+    addDataButtons();
+} else {
+    window.addEventListener('load', addDataButtons);
+}
+
+// Add Font Awesome if not already loaded
+if (!document.querySelector('link[href*="font-awesome"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+    document.head.appendChild(link);
+}
+
+// Modify the addRow function to ensure Amount cells are non-editable
+function addRow() {
+    const tableBody = document.querySelector("#items-table tbody");
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = ` 
+        <td contenteditable="true">New Item</td>
+        <td contenteditable="true">0</td>
+        <td contenteditable="true">0</td>
+        <td contenteditable="false">0</td> <!-- Non-editable amount cell -->
+    `;
+    tableBody.appendChild(newRow);
+    
+    // Add event listeners to the new row's editable cells
+    const cells = newRow.querySelectorAll('td');
+    cells[0].addEventListener('input', calculateTotals);
+    cells[1].addEventListener('input', calculateTotals);
+    cells[2].addEventListener('input', calculateTotals);
+    
+    calculateTotals(); // Recalculate totals after adding new row
+}
 </script>
 
 </body>
