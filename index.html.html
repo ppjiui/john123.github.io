@@ -1855,7 +1855,7 @@ const dataManager = {
     // Get all editable data from the page
     getAllEditableData: function() {
         const data = {
-            version: '1.4',
+            version: '1.5',
             timestamp: new Date().toISOString(),
             sections: {}
         };
@@ -1874,6 +1874,18 @@ const dataManager = {
         
         data.sections.invoiceItems = this.getTableDataWithEditState('#invoiceItemTable tbody tr', 
             ['sno', 'description', 'quantity', 'unitPrice', 'amount']);
+            
+        // Add Terms & Conditions to the saved data
+        const termsParagraph = this.findTermsAndConditions();
+        if (termsParagraph) {
+            const termsSpan = termsParagraph.querySelector('span[contenteditable="true"]');
+            if (termsSpan) {
+                data.sections.termsAndConditions = {
+                    html: termsSpan.innerHTML,
+                    isEditable: termsSpan.contentEditable === 'true'
+                };
+            }
+        }
         
         const menuPage = document.querySelector('#page2');
         if (menuPage) {
@@ -1895,6 +1907,17 @@ const dataManager = {
         }
         
         return data;
+    },
+
+    // Helper function to find Terms & Conditions paragraph
+    findTermsAndConditions: function() {
+        const paragraphs = document.querySelectorAll('p');
+        for (const p of paragraphs) {
+            if (p.textContent.includes('Terms & Conditions')) {
+                return p;
+            }
+        }
+        return null;
     },
 
     getElementContent: function(selector) {
@@ -1937,6 +1960,19 @@ const dataManager = {
         this.restoreElementContent('#editable-date', data.sections.quotationHeader?.eventDate);
         this.restoreElementContent('.event-time', data.sections.quotationHeader?.eventTime);
         this.restoreElementContent('#current-date', data.sections.quotationHeader?.currentDate);
+        
+        // Restore Terms & Conditions
+        const termsParagraph = this.findTermsAndConditions();
+        if (termsParagraph && data.sections.termsAndConditions) {
+            let termsSpan = termsParagraph.querySelector('span[contenteditable="true"]');
+            if (!termsSpan) {
+                termsSpan = document.createElement('span');
+                termsSpan.contentEditable = 'true';
+                termsParagraph.appendChild(termsSpan);
+            }
+            termsSpan.innerHTML = data.sections.termsAndConditions.html || '';
+            termsSpan.contentEditable = data.sections.termsAndConditions.isEditable ? 'true' : 'false';
+        }
         
         const quotationTable = document.querySelector('#items-table tbody');
         if (quotationTable && data.sections.quotationItems) {
@@ -2046,22 +2082,31 @@ const dataManager = {
     },
 
     saveCurrentData: function() {
-        const data = this.getAllEditableData();
-        const saveName = data.sections.quotationHeader?.clientName?.text || "Unnamed " + new Date().toLocaleString();
-        
-        const allSaves = JSON.parse(localStorage.getItem('cateringSaves')) || {};
-        const saveId = 'save_' + Date.now();
-        allSaves[saveId] = {
-            name: saveName,
-            data: data,
-            timestamp: new Date().toISOString()
-        };
-        localStorage.setItem('cateringSaves', JSON.stringify(allSaves));
-        
-        this.exportAsFile(data, saveName);
-        this.updateDropdown();
-        
-        alert(`Saved "${saveName}" to both browser memory and file!`);
+        try {
+            const data = this.getAllEditableData();
+            const saveName = data.sections.quotationHeader?.clientName?.text || "Unnamed " + new Date().toLocaleString();
+            
+            // Save to localStorage
+            const allSaves = JSON.parse(localStorage.getItem('cateringSaves')) || {};
+            const saveId = 'save_' + Date.now();
+            allSaves[saveId] = {
+                name: saveName,
+                data: data,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('cateringSaves', JSON.stringify(allSaves));
+            
+            // Export as file
+            this.exportAsFile(data, saveName);
+            
+            // Update dropdown
+            this.updateDropdown();
+            
+            alert(`Saved "${saveName}" to both browser memory and file!`);
+        } catch (error) {
+            console.error('Error saving data:', error);
+            alert('Error saving data: ' + error.message);
+        }
     },
     
     exportAsFile: function(data, saveName) {
