@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display+SC:wght@700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -115,7 +117,7 @@
 .totals {
             text-align: right;
             margin-bottom: 20px;
-	    margin-top: -40px
+	    margin-top: -8px; /* Add proper spacing when generate pdf it comes exactly down to item table */
 
 	 }
         .totals p {
@@ -166,15 +168,18 @@
 	    font-size: 18px; /* Adjust this value to your desired size */
         }
         .menu-page h2 {
-            font-size: 30px;
-            font-weight: bold;
-            color: #007bff;
-	    margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            line-height: 1; /* Adjust line height if needed */
-   	    margin-top: -25px; /* Move the title up */
-	    position: relative;
-            top: -25px; /* Move the title up */
+            font-family: 'Great Vibes', cursive; /* Elegant cursive font */
+            font-size: 3.5rem !important; /* Large size (like the Menu Generator) */
+            color: #8b4513; /* SaddleBrown color */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow */
+            letter-spacing: 1px; /* Slightly spaced letters */
+            margin: 0; /* Your existing setting (removes default margin) */
+            padding: 0; /* Your existing setting (removes default padding) */
+            line-height: 1; /* Your existing setting (tight line height) */
+            margin-top: -9px; /* Your existing setting (moves title up) */
+            position: relative; /* Your existing setting (for positioning) */
+            top: -9px; /* Your existing setting (moves title up) */
+            display: inline-block; /* Your existing setting (fits width to text) */
         }
         .menu-page p {
             font-size: 18px;
@@ -256,7 +261,129 @@
 #page2 {
     page-break-before: avoid;
     margin-top: 0;
+    background-color: #fff9e6; /* Add this line */
 }
+    </style>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 20px;
+            background-color: #f9f5f0;
+        }
+        
+        /* Editor container (always visible now) */
+        #editorContainer {
+            display: block; /* Changed from 'none' to 'block' */
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Menu input area */
+        #menuInput {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+        
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .action-buttons button {
+            padding: 8px 15px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Preview area */
+        #menuOutput {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Category titles */
+        .category-title {
+        font-family: 'Playfair Display SC', serif;
+        font-size: 1.2rem; /* Reduced from 1.5rem */
+        color: #5a3921;
+        border-bottom: 0px dotted #d4a76a;
+        padding-bottom: 5px;
+        margin: 20px 0 10px; /* Reduced margins */
+	margin-bottom: 2px !important;  /* Reduced from default */
+        padding-bottom: 0 !important;
+	margin-top: 8px !important;    /* Reduced from ~20px */
+        padding: 0 !important;
+        }
+
+       .menu-item, .menu-subtext {
+       margin-top: 1px !important;  /* Reduced spacing above items */
+       margin-bottom: 1px !important;  /* Reduced spacing below items */
+       padding: 0 !important;
+       line-height: 1.2 !important;  /* Tighter line spacing */
+       margin: 1px 0 !important;      /* Tight vertical spacing */
+       }
+
+       /* Specific adjustment for Arabic/English items */
+      .menu-item:has(span), .menu-subtext:has(span) {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      }
+
+      /* Special case: Last item before new category */
+       .menu-item:last-child, 
+       .menu-subtext:last-child {
+        margin-bottom: 4px !important; /* Small gap before next category */
+       }
+
+      .category-title:first-child {
+      margin-top: -30px !important; /* Reduced from default */
+      }
+        
+        /* Menu items */
+        .menu-item {
+            font-family: 'Montserrat', sans-serif;
+        font-size: 0.9rem; /* Added font size */
+        margin: 8px 0; /* Reduced margin */
+        padding-left: 15px;
+        position: relative;
+        }
+        
+        .menu-item:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            color: #d4a76a;
+        }
+        
+        /* Subtext items */
+        .menu-subtext {
+             font-family: 'Montserrat', sans-serif;
+        font-style: italic;
+        color: #666;
+        font-size: 0.8rem; /* Reduced from 0.9em */
+        margin: 8px 0 8px 15px;
+        padding-left: 15px;
+        position: relative;
+        }
     </style>
 <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAM8AAABzBAMAAADNp0tiAAAAElBMVEW8j1NHcEwlHBBxVjEkHBCie0fOj2bZAAAABXRSTlP+AFXpnCkdkxwAAAOaSURBVGje7ZnLsqMgEECpstyP6A8AZu8V2U8w2VM38f9/ZXzE+GpEArKYSi+yUMKhnzSIkjDyB31BAUGUBAKxayhQGQh0eQYC/Y1IGFARhwHhIr4GAaUKlWFACFVBQBeEeBDQHaEHCQDCAqEoBCgrEPog7OxBbdCh+CcAiKFWylCgRwCQ6ED20WANwkUHso8Ga1AXCy2oPB3Uuwih5+kgMYCis0GDiz6IBltQpgaQdcragl4uQuj3ZJAYQdG5oNFF9k6yBakRZJuylqC3i6zr6gTCR2xxn0DPT0GZtHHRMSflBNKoIoezqBezkzCHQEld2rjoSCYxGMTMvU0xBxlth0UFRl3WlDaWMwd4qkoQhAvTGheWM9oOi/lS5nlUmLazYgkyrIupSAO6oMf1aHCbK3gmFg3tHJQaet2V5faLA+ZqcRaYg1pf7xlvrdC+7ZhaLmQOwvvNbqrQcZVawy3nWhTVbrPRGg+LDWdnMF+/XYB2u11AIb2l6+5tpd0m+rk0f4YU0qrExGbJC9Dg7kgeVUi3qkxso3+58Q1x9ZBHFYJVeo2NrnrQRftvpmBQXMGBsDlxLEHjdBtSplEIUP+te7kDepdnLgm0SEj4clE5H+f42QFNyd/w2UpxrdAxEmZT43fd64ImCzX8vbXjutjhtG6i48CcC12YrEDzuvngJSUkoTlHBnl0hsYLzKZLWoFSFU9Dm6bhrQhlAsX9ON40O3VwBcLGSY/KerNagwpfoFUsbFriuyd9Nqm4BjEU+0E9DU1+5slJm2q7Bvly0tpF22OL8AQiJhA7x0VbUOoHVBpBflJ220xtQeIUFwFnWC9OipJAoPIAKD2hooIgHykLNNbAPYNAyn8sQKDaXaPHoZsTdkYsQKDU1XIKOgoCIPdogL6YQZdOd//pCoPYCS4CQc5O+jkIcnUSeA4GLwYL7+mqAd1daoOCP8WAIKa8xwIMcuy5fg6D3KIB/sAN3xLX3CTVS6BXFiBKKcajeph2IuUtv/WS53Qmef56PEg7irrce+NOCMUUlhEzLMEFRFpIx5mT3lzZ6tEpI3sOIU43+YQMHALoI+Vg0UEfnLhqhAlsO5l3QuVLT5I4akR7GMagn+RkT/opCOsiYIy63m6zYLQBYXn7QOq6vlW32zXxmbA7UlqACu819QzQ73+n0RcUJBjucRPHSn3y08A7uQY07GVSI10B7X5WD4cnOXXbJpzlC/qCvqAvCAD9A6M7x+SW47sWAAAAAElFTkSuQmCC" type="image/x-icon">
 </head>
@@ -392,13 +519,17 @@
 	<div id="page2" class="container menu-page">
     <h2 class="editable" contenteditable="true">Menu</h2>
     <!-- Menu Content -->
-    <div class="menu-columns single-column">
-        <div class="column full-width" contenteditable="true">
-            <!-- Add your content here -->
+        <div id="editorContainer">
+        <textarea id="menuInput" placeholder="Enter your menu items here, with categories separated by blank lines"></textarea>
+        <div class="action-buttons">
+            <button id="formatBtn">Format Menu</button>
+            <button id="copyBtn">Copy Menu</button>
+            <button id="clearBtn">Clear All</button>
         </div>
-        <div class="divider"></div>
-        <div class="column half-width" contenteditable="true">
-            <!-- Content will flow into this column when in double column mode -->
+    </div>
+    
+    <div id="menuOutput"></div>
+
         </div>
     </div>
 </div>
@@ -481,7 +612,113 @@
     }
 }
 </style>
-
+<script>
+        // DOM Elements
+        const menuInput = document.getElementById('menuInput');
+        const menuOutput = document.getElementById('menuOutput');
+        const formatBtn = document.getElementById('formatBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        
+        // Emoji mapping for categories
+        const categoryEmojis = {
+            'starters': '🍴', 'snacks': '🍟', 'amuse-bouche': '🍥', 'hot appetizers': '🔥', 'cold appetizers': '❄️',
+            'main': '🍽️', 'mains': '🍽️', 'entrees': '🍽️', 'dishes': '🍛', 'course': '🍽️',
+            'desserts': '🍰', 'sweets': '🍬', 'cakes': '🎂', 'pastries': '🥮', 'chocolate': '🍫',
+            'drinks': '🍹', 'beverages': '🥤', 'cocktails': '🍸', 'wine': '🍷', 'beer': '🍺', 'coffee': '☕', 'tea': '🍵',
+            'salad': '🥗', 'salads': '🥗', 'soup': '🍲', 'soups': '🍲', 'sides': '🥙', 'bread': '🍞', 'cheese': '🧀', 
+            'pizza': '🍕', 'burger': '🍔', 'sushi': '🍣', 'noodles': '🍜', 'rice': '🍚', 'curry': '🍛', 'taco': '🌮', 
+            'burrito': '🌯', 'sandwich': '🥪', 'seafood': '🦞', 'fish': '🐟', 'meat': '🥩', 'poultry': '🍗', 
+            'vegan': '🌱', 'vegetarian': '🥦', 'fruit': '🍎', 'vegetables': '🥕', 'eggs': '🥚', 'pasta': '🍝', 
+            'fries': '🍟', 'popcorn': '🍿', 'dumplings': '🥟', 'pancakes': '🥞', 'icecream': '🍦', 'donut': '🍩', 
+            'cookie': '🍪', 'pie': '🥧', 'custard': '🍮', 'candy': '🍭', 'honey': '🍯', 'juice': '🧃', 'smoothie': '🥤', 
+            'milkshake': '🥛', 'whisky': '🥃', 'champagne': '🍾', 'sake': '🍶', 'vodka': '🍸', 'lemonade': '🍋', 
+            'water': '💧', 'soda': '🥤', 'energy-drink': '⚡', 'grill': '🔥', 'barbecue': '🍖', 'fried': '🍳', 
+            'baked': '🥖', 'raw': '🥩', 'steamed': '♨️', 'boiled': '🥘', 'spicy': '🌶️', 'sour': '🍋', 'sweet': '🍯', 
+            'bitter': '🍫', 'umami': '🍲', 'gluten-free': '🌾🚫', 'organic': '🌿', 'halal': '☪️', 'kosher': '✡️', 
+            'keto': '🥑', 'paleo': '🥩', 'cutlery': '🍴', 'plate': '🍽️', 'bowl': '🥣', 'glass': '🥂', 'takeout': '🥡', 
+            'delivery': '🛵', 'dining': '🍷', 'breakfast': '☕', 'brunch': '🥑', 'lunch': '🥪', 'dinner': '🍷', 
+            'supper': '🍜', 'midnight-snack': '🌙🍕', 'italian': '🍝', 'mexican': '🌮', 'japanese': '🍣', 'chinese': '🥡', 
+            'indian': '🍛', 'french': '🥖', 'thai': '🍜', 'mediterranean': '🥙', 'american': '🍔', 'korean': '🍢', 
+            'vietnamese': '🍲', 'middle-eastern': '🥙', 'buffet': '🍽️', 'banquet': '🎪', 'picnic': '🧺', 'bbq': '🍖', 
+            'high-tea': '🫖', 'festive': '🎄🍗', 'fondue': '🍫', 'tapas': '🧀', 'dimsum': '🥟', 'ramen': '🍜', 'poke': '🍣', 
+            'pho': '🍲', 'paella': '🥘', 'hotpot': '🍲', 'raclette': '🧀', 'charcuterie': '🍖', 'antipasto': '🍅', 
+            'mezze': '🥙', 'customize': '🧑‍🍳', 'hot appetizer': '🔥', 'cold appetizer': '❄️'
+        };
+        
+        // Format menu function
+        formatBtn.addEventListener('click', () => {
+            const rawText = menuInput.value.trim();
+            if (!rawText) return;
+            
+            let html = '';
+            const categories = rawText.split(/\n\s*\n/); // Split by blank lines
+            
+            categories.forEach(category => {
+                const lines = category.split('\n').filter(line => line.trim());
+                if (lines.length === 0) return;
+                
+                // First line is category title
+                const categoryName = lines[0].trim();
+                const lowerCategory = categoryName.toLowerCase();
+                
+                // Find matching emoji
+                let emoji = '';
+                for (const [key, value] of Object.entries(categoryEmojis)) {
+                    if (lowerCategory.includes(key)) {
+                        emoji = value;
+                        break;
+                    }
+                }
+                
+                html += `<div class="category-title">${emoji} ${formatTitleCase(categoryName)}</div>`;
+                
+                // Process remaining lines as items
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line.startsWith('(') && line.endsWith(')')) {
+                        html += `<div class="menu-subtext">${line}</div>`;
+                    } else {
+                        html += `<div class="menu-item">${formatTitleCase(line)}</div>`;
+                    }
+                }
+            });
+            
+            menuOutput.innerHTML = html;
+        });
+        
+        // Copy to clipboard
+        copyBtn.addEventListener('click', () => {
+            if (!menuOutput.innerHTML) return;
+            
+            const range = document.createRange();
+            range.selectNode(menuOutput);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            alert('Menu copied to clipboard!');
+        });
+        
+        // Clear all
+        clearBtn.addEventListener('click', () => {
+            menuInput.value = '';
+            menuOutput.innerHTML = '';
+        });
+        
+        // Title case formatting function
+        function formatTitleCase(str) {
+            const lowercaseWords = ['and', 'or', 'with', 'the', 'a', 'an', 'but', 'for', 'nor', 'as', 'at', 'by', 'in', 'of', 'on', 'to'];
+            
+            return str.split(' ').map((word, index) => {
+                if (index === 0 || !lowercaseWords.includes(word.toLowerCase())) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }
+                return word.toLowerCase();
+            }).join(' ');
+        }
+    </script>
 <script>
 // Toggle Columns Button
 const toggleColumnsButton = document.querySelector('.toggle-columns-button');
@@ -545,96 +782,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 </script>
-<script>
-    // Function to highlight the selected text in bold
-    function highlightBold() {
-        // Make sure there's a selection
-        const selection = window.getSelection();
-        if (!selection.rangeCount) return;
-
-        // Use the execCommand to make the selected text bold
-        document.execCommand('bold', false, null);
-    }
-</script>
    <script>
-    document.getElementById('convertToPDF').addEventListener('click', () => {
+document.getElementById('convertToPDF').addEventListener('click', () => {
     const element = document.getElementById('container');
 
-    // Get client name from the editable field (assuming the client's name is in the "CLIENT NAME" field)
+    // Get client name
     const clientName = document.querySelector('td[contenteditable="true"]:first-of-type').textContent.trim();
-
-    // If the client name is empty, use a default name
     const fileName = clientName ? `${clientName}-Quotation.pdf` : 'Quotation.pdf';
 
-    const options = {
-        margin: 0.2,
-        filename: fileName,  // Use the client name in the filename
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    // Select the 3rd page (Function Sheet) and temporarily remove it
+    // Remove pages temporarily
     const page3 = document.getElementById('page3');
-    const parentPage3 = page3.parentNode; // Get the parent node of page3
-    parentPage3.removeChild(page3); // Remove the 3rd page
+    const parentPage3 = page3.parentNode;
+    parentPage3.removeChild(page3);
 
-    // Select the invoice page and temporarily remove it
     const invoicePage = document.getElementById('invoice-page');
-    const parentInvoicePage = invoicePage.parentNode; // Get the parent node of invoice page
-    parentInvoicePage.removeChild(invoicePage); // Remove the invoice page
+    const parentInvoicePage = invoicePage.parentNode;
+    parentInvoicePage.removeChild(invoicePage);
 
-    // Hide buttons before conversion (including buttons on the invoice page)
-    const buttons = [
-        document.querySelector('.remove-row-button'), // Quotation page buttons
+    // Hide all interactive elements
+    const elementsToHide = [
+        // Your existing elements to hide
+        document.querySelector('.remove-row-button'),
         document.querySelector('.add-row-button'),
         document.querySelector('.convert-pdf-button'),
         document.querySelector('.highlight-bold-button'),
         document.querySelector('.toggle-columns-button'),
         document.querySelector('.convert-to-pdf'),
-        // Invoice page buttons
-        document.querySelector('.invoice-download-btn'), // Example: Invoice download button
-        document.querySelector('.invoice-add-row-btn'),  // Example: Invoice add row button
-        document.querySelector('.invoice-remove-row-btn'), // Example: Invoice remove row button
-        // Add the "Add Row" and "Remove Row" buttons from the invoice page
-        document.querySelector('.invoice-download-btn[onclick="invoiceAddRow()"]'), // Add Row button
-        document.querySelector('.invoice-download-btn[onclick="invoiceRemoveRow()"]') // Remove Row button
+        document.querySelector('.invoice-download-btn'),
+        document.querySelector('.invoice-add-row-btn'),
+        document.querySelector('.invoice-remove-row-btn'),
+        document.querySelector('.invoice-download-btn[onclick="invoiceAddRow()"]'),
+        document.querySelector('.invoice-download-btn[onclick="invoiceRemoveRow()"]'),
+        
+        // Menu editor elements to hide
+        document.getElementById('editorContainer'), // Entire editor
+        document.getElementById('formatBtn'),      // Format button
+        document.getElementById('copyBtn'),        // Copy button
+        document.getElementById('clearBtn'),       // Clear button
+        
+        // NEW: Menu dropdown to hide
+        document.getElementById('menuDropdown')    // The menu selection dropdown
     ];
 
-    buttons.forEach(button => {
-        if (button) button.style.visibility = 'hidden'; // Hide buttons (if they exist)
+    // Store original display states
+    const originalStates = elementsToHide.map(el => el ? el.style.display : null);
+
+    // Hide all elements
+    elementsToHide.forEach(el => {
+        if (el) el.style.display = 'none';
     });
 
-    // Generate the PDF
+    // PDF options
+    const options = {
+        margin: 0.2,
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // Generate PDF
     html2pdf()
         .from(element)
         .set(options)
         .save()
         .then(() => {
-            // Restore the 3rd page after PDF generation
-            parentPage3.appendChild(page3); // Add the 3rd page back to the DOM
-
-            // Restore the invoice page after PDF generation
-            parentInvoicePage.appendChild(invoicePage); // Add the invoice page back to the DOM
-
-            // Show buttons again
-            buttons.forEach(button => {
-                if (button) button.style.visibility = 'visible'; // Show buttons (if they exist)
-            });
-        })
-        .catch(err => {
-            console.error('Error generating PDF:', err);
-            // Restore the 3rd page and invoice page even if an error occurs
+            // Restore pages
             parentPage3.appendChild(page3);
             parentInvoicePage.appendChild(invoicePage);
 
-            // Show buttons again
-            buttons.forEach(button => {
-                if (button) button.style.visibility = 'visible'; // Show buttons (if they exist)
+            // Restore all elements visibility
+            elementsToHide.forEach((el, index) => {
+                if (el) el.style.display = originalStates[index] || '';
+            });
+        })
+        .catch(err => {
+            console.error('PDF generation error:', err);
+            // Restore pages even if error occurs
+            parentPage3.appendChild(page3);
+            parentInvoicePage.appendChild(invoicePage);
+
+            // Restore all elements visibility
+            elementsToHide.forEach((el, index) => {
+                if (el) el.style.display = originalStates[index] || '';
             });
         });
 });
-
         // Function to calculate total price for each row and update Subtotal, VAT, and total amount
         function calculateTotals() {
     let Subtotal = 0;
@@ -701,80 +934,56 @@ function formatCurrency(amount) {
             }
         }
     </script>
-<script>
-    // Prevent default save behavior for Ctrl + S and prompt the user to save as HTML
-    document.addEventListener('keydown', function(event) {
-        if (event.ctrlKey && event.key === 's') {
-            event.preventDefault(); // Prevent the default browser save dialog
-            saveAsHTML(); // Trigger the save as HTML functionality
-        }
-    });
-
-    // Add event listener to the button with the class 'save-html-button' to trigger the save as HTML function
-    document.querySelector('.save-html-button').addEventListener('click', function() {
-        saveAsHTML(); // Trigger the save as HTML functionality when the button is clicked
-    });
-
-    function saveAsHTML() {
-        // Get client name from the editable field (assuming the client's name is in the "CLIENT NAME" field)
-        const clientName = document.querySelector('td[contenteditable="true"]:first-of-type').textContent.trim();
-        const filename = clientName ? `${clientName}_Quotation.html` : 'Quotation.html';
-
-        // Get the HTML content of the page
-        const pageContent = document.documentElement.outerHTML;
-
-        // Create a Blob from the HTML content
-        const blob = new Blob([pageContent], { type: 'text/html' });
-
-        // Create an anchor link for downloading the HTML file
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-
-        // Trigger the download by clicking the link programmatically
-        link.click();
-    }
-</script>
 </body>
 </html>
 
 <style>
+    /* ===== FUNCTION SHEET STYLE ===== */
     #page3 .page {
         page-break-after: always;
+        margin-top: 0;
+        padding-top: 0;
     }
 
     #page3 h3 {
         font-size: 24px;
         color: #333;
         text-align: center;
+        margin: 0 0 5px 0; /* Top Right Bottom Left */
+        padding: 0;
     }
 
     #page3 .two-column-table {
         display: flex;
         justify-content: space-between;
-        gap: 20px;
+        gap: 10px; /* Reduced from 20px */
+        margin-top: 0; /* Removed extra space */
     }
 
     #page3 .details-table {
-        width: 100%; /* Ensures tables take equal width within the container */
-        border-collapse: collapse; /* Makes the table borders collapse for better alignment */
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
     }
 
     #page3 .title-row th {
         text-align: center;
         font-weight: bold;
         background-color: #f2f2f2;
+        padding: 4px 6px !important; /* More compact */
     }
 
     #page3 .details-table th,
     #page3 .details-table td {
-        padding: 10px;
+        padding: 4px 6px !important; /* Reduced from 10px */
         border: 1px solid #ccc;
+        line-height: 1.2; /* Tighter spacing */
+        height: 24px; /* Fixed row height */
     }
 
     #page3 .editable-field {
         min-width: 150px;
-        padding: 5px;
+        padding: 4px;
         border: 1px solid #ccc;
         text-align: left;
     }
@@ -783,48 +992,58 @@ function formatCurrency(amount) {
         color: #999;
     }
 
-    /* Ensure tables grow equally within the two-column layout */
     #page3 .two-column-table > table {
-        flex: 1; /* Ensures both tables take up equal space */
+        flex: 1;
     }
 
     #page3 .section-container {
         display: flex;
         justify-content: space-between;
-        margin-top: 30px;
-        border-top: 2px solid #ccc;
-        padding-top: 20px;
+        margin-top: 10px; /* Reduced from 30px */
+        border-top: 1px solid #ccc; /* Thinner line */
+        padding-top: 10px; /* Reduced from 20px */
     }
 
     #page3 .section {
-        flex-grow: 1; /* Ensures both sections grow equally */
-        width: 48%; /* Keeps the sections side by side */
+        flex-grow: 1;
+        width: 48%;
         border: 1px solid #ccc;
-        padding: 20px;
-        min-height: 200px;
+        padding: 10px; /* Reduced from 20px */
+        min-height: 180px; /* Slightly reduced */
         display: flex;
         flex-direction: column;
     }
 
     #page3 .section-title {
-        font-size: 20px;
+        font-size: 18px; /* Slightly smaller */
         font-weight: bold;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 5px; /* Reduced from 10px */
+        padding: 0;
     }
 
     #page3 .editable-section {
-        flex-grow: 1; /* Allows the editable section to grow as content is added */
-        padding: 10px;
-        overflow: auto; /* Ensures content does not overflow */
+        flex-grow: 1;
+        padding: 0;
+        overflow: auto;
+        margin: 0;
     }
 
     #page3 .editable-section p {
         margin: 0;
-        padding: 5px 0;
+        padding: 2px 0; /* More compact */
         cursor: text;
     }
+
+    /* Hide elements during PDF export */
+    @media print {
+        .hide-in-pdf, 
+        .clone-menu-btn {
+            display: none !important;
+        }
+    }
 </style>
+
 
 <div id="container"></div>
 
@@ -1078,34 +1297,6 @@ function formatCurrency(amount) {
         });
     });
 </script>
-<style>
-        /* Floating button style */
-        .highlight-bold-button {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            padding: 10px;
-            font-size: 20px;  /* Increase font size for the "B" */
-            font-weight: bold;  /* Make the "B" bold */
-            color: black;  /* Set text color to black */
-            background-color: transparent;  /* Make background transparent */
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;  /* Make it a circle */
-            width: 60px;  /* Width of the circle */
-            height: 60px;  /* Height of the circle */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .highlight-bold-button:hover {
-            background-color: #f0f0f0;  /* Light background on hover */
-        }
-    </style>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1732,7 +1923,7 @@ document.querySelector('.invoice-download-btn').addEventListener('click', () => 
 </script>
 <script>
 // ==============================================
-// COMPLETE DATA MANAGEMENT SYSTEM WITH TIME FORMAT
+// COMPLETE DATA MANAGEMENT SYSTEM (UPDATED)
 // ==============================================
 
 const dataManager = {
@@ -1850,14 +2041,15 @@ const dataManager = {
         });
     },
 
-    // Get all editable data from the page
+    // Get all editable data from the page (UPDATED TO INCLUDE MENU)
     getAllEditableData: function() {
         const data = {
-            version: '1.5',
+            version: '1.6', // Updated version
             timestamp: new Date().toISOString(),
             sections: {}
         };
         
+        // Quotation data
         data.sections.quotationHeader = {
             clientName: this.getElementContent('tr:nth-child(2) td.editable-field'),
             contact: this.getElementContent('tr:nth-child(3) td.editable-field'),
@@ -1867,13 +2059,15 @@ const dataManager = {
             currentDate: this.getElementContent('#current-date')
         };
         
+        // Quotation items
         data.sections.quotationItems = this.getTableDataWithEditState('#items-table tbody tr', 
             ['description', 'unitPrice', 'quantity', 'amount']);
         
+        // Invoice items
         data.sections.invoiceItems = this.getTableDataWithEditState('#invoiceItemTable tbody tr', 
             ['sno', 'description', 'quantity', 'unitPrice', 'amount']);
             
-        // Add Terms & Conditions to the saved data
+        // Terms & Conditions
         const termsParagraph = this.findTermsAndConditions();
         if (termsParagraph) {
             const termsSpan = termsParagraph.querySelector('span[contenteditable="true"]');
@@ -1885,17 +2079,18 @@ const dataManager = {
             }
         }
         
-        const menuPage = document.querySelector('#page2');
-        if (menuPage) {
-            data.sections.menuPage = {
-                html: menuPage.innerHTML,
-                isDoubleColumn: menuPage.querySelector('.menu-columns')?.classList.contains('double-column') || false
-            };
-        }
+        // MENU SYSTEM (NEWLY ADDED)
+        data.sections.menuSystem = {
+            input: document.getElementById('menuInput')?.value || '',
+            output: document.getElementById('menuOutput')?.innerHTML || '',
+            isDoubleColumn: document.querySelector('.menu-columns')?.classList.contains('double-column') || false
+        };
         
+        // Function sheet
         const functionSheet = document.querySelector('#page3');
         if (functionSheet) data.sections.functionSheet = functionSheet.innerHTML;
         
+        // Invoice page
         const invoicePage = document.querySelector('#invoice-page');
         if (invoicePage) {
             data.sections.invoicePage = {
@@ -1946,12 +2141,14 @@ const dataManager = {
         });
     },
 
+    // Restore all data (UPDATED TO HANDLE MENU)
     restoreAllData: function(data) {
         if (!data || !data.sections) {
             alert('Invalid data format');
             return;
         }
 
+        // Restore quotation header
         this.restoreElementContent('tr:nth-child(2) td.editable-field', data.sections.quotationHeader?.clientName);
         this.restoreElementContent('tr:nth-child(3) td.editable-field', data.sections.quotationHeader?.contact);
         this.restoreElementContent('tr:nth-child(4) td.editable-field', data.sections.quotationHeader?.address);
@@ -1972,6 +2169,7 @@ const dataManager = {
             termsSpan.contentEditable = data.sections.termsAndConditions.isEditable ? 'true' : 'false';
         }
         
+        // Restore quotation table
         const quotationTable = document.querySelector('#items-table tbody');
         if (quotationTable && data.sections.quotationItems) {
             quotationTable.innerHTML = '';
@@ -1986,6 +2184,7 @@ const dataManager = {
             });
         }
         
+        // Restore invoice table
         const invoiceTable = document.querySelector('#invoiceItemTable tbody');
         if (invoiceTable && data.sections.invoiceItems) {
             invoiceTable.innerHTML = '';
@@ -2006,21 +2205,46 @@ const dataManager = {
             });
         }
         
-        const menuPage = document.querySelector('#page2');
-        if (menuPage && data.sections.menuPage) {
-            menuPage.innerHTML = data.sections.menuPage.html;
-            const menuColumns = menuPage.querySelector('.menu-columns');
-            if (menuColumns) {
-                menuColumns.classList.remove('single-column', 'double-column');
-                menuColumns.classList.add(data.sections.menuPage.isDoubleColumn ? 'double-column' : 'single-column');
+        // RESTORE MENU SYSTEM (NEWLY ADDED)
+        if (data.sections.menuSystem) {
+            const menuInput = document.getElementById('menuInput');
+            const menuOutput = document.getElementById('menuOutput');
+            const formatBtn = document.getElementById('formatBtn');
+            const toggleBtn = document.querySelector('.toggle-columns-button');
+            
+            if (menuInput) menuInput.value = data.sections.menuSystem.input || '';
+            
+            if (menuOutput) {
+                if (data.sections.menuSystem.output) {
+                    // Restore formatted output if it exists
+                    menuOutput.innerHTML = data.sections.menuSystem.output;
+                } else if (menuInput.value && formatBtn) {
+                    // Auto-format if there's input but no output
+                    formatBtn.click();
+                }
+            }
+            
+            // Restore column layout
+            if (toggleBtn && data.sections.menuSystem.isDoubleColumn !== undefined) {
+                const menuColumns = document.querySelector('.menu-columns');
+                if (menuColumns) {
+                    const shouldBeDouble = data.sections.menuSystem.isDoubleColumn;
+                    const isCurrentlyDouble = menuColumns.classList.contains('double-column');
+                    
+                    if (shouldBeDouble !== isCurrentlyDouble) {
+                        toggleBtn.click(); // Toggle if needed
+                    }
+                }
             }
         }
         
+        // Restore function sheet
         const functionSheet = document.querySelector('#page3');
         if (functionSheet && data.sections.functionSheet) {
             functionSheet.innerHTML = data.sections.functionSheet;
         }
         
+        // Restore invoice page
         const invoicePage = document.querySelector('#invoice-page');
         if (invoicePage && data.sections.invoicePage) {
             invoicePage.innerHTML = data.sections.invoicePage.html;
@@ -2060,6 +2284,7 @@ const dataManager = {
             }
         }
         
+        // Recalculate totals and setup event listeners after a short delay
         setTimeout(() => {
             this.setupTableListeners();
             if (typeof calculateTotals === 'function') calculateTotals();
@@ -2208,78 +2433,638 @@ const dataManager = {
     }
 };
 
-// ==============================================
-// TABLE MANAGEMENT FUNCTIONS
-// ==============================================
-
-function calculateTotals() {
-    let Subtotal = 0;
-    document.querySelectorAll("#items-table tbody tr").forEach(row => {
-        const unitPrice = parseFloat(row.cells[1].textContent) || 0;
-        const quantity = parseFloat(row.cells[2].textContent) || 0;
-        const totalPrice = unitPrice * quantity;
-
-        row.cells[3].textContent = formatCurrency(totalPrice);
-        Subtotal += totalPrice;
-    });
-
-    const vat = Subtotal * 0.05;
-    const totalAmount = Subtotal + vat;
-
-    document.getElementById("Subtotal").textContent = formatCurrency(Subtotal);
-    document.getElementById("vat").textContent = formatCurrency(vat);
-    document.getElementById("total-amount").textContent = formatCurrency(totalAmount);
-}
-
-function formatCurrency(amount) {
-    if (amount % 1 === 0) {
-        return amount.toLocaleString();
-    } else {
-        return amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-}
-
-function addRow() {
-    const tableBody = document.querySelector("#items-table tbody");
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = ` 
-        <td contenteditable="true">New Item</td>
-        <td contenteditable="true">0</td>
-        <td contenteditable="true">0</td>
-        <td contenteditable="false">0</td>
-    `;
-    tableBody.appendChild(newRow);
-    
-    const cells = newRow.querySelectorAll('td');
-    cells[0].addEventListener('input', calculateTotals);
-    cells[1].addEventListener('input', calculateTotals);
-    cells[2].addEventListener('input', calculateTotals);
-    
-    calculateTotals();
-}
-
-function removeRow() {
-    const tableBody = document.querySelector("#items-table tbody");
-    const rows = tableBody.querySelectorAll("tr");
-    if (rows.length > 0) {
-        tableBody.removeChild(rows[rows.length - 1]);
-        calculateTotals();
-    }
-}
-
 // Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize data manager
     dataManager.init();
     
     // Calculate initial totals
-    calculateTotals();
+    if (typeof calculateTotals === 'function') calculateTotals();
 });
-
-// Make these functions available globally for HTML onclick attributes
-window.addRow = addRow;
-window.removeRow = removeRow;
-window.calculateTotals = calculateTotals;
 </script>
+<script>
+// ====== CLONE MENU TO FUNCTION SHEET ======
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait a moment to ensure all elements are loaded
+    setTimeout(function() {
+        // 1. Add CSS Styles (minimal styles that won't interfere with PDF export)
+        const cloneMenuStyles = `
+            .clone-menu-btn {
+                margin-left: 10px;
+                padding: 2px 8px;
+                font-size: 12px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .clone-menu-btn:hover {
+                background-color: #0056b3;
+            }
+            @media print {
+                .clone-menu-btn {
+                    display: none !important;
+                }
+            }
+        `;
+
+        // Inject styles
+        const styleElement = document.createElement('style');
+        styleElement.textContent = cloneMenuStyles;
+        document.head.appendChild(styleElement);
+
+        // 2. Add "Clone Menu" Button to Kitchen Section
+        function addCloneMenuButton() {
+            const kitchenSectionTitle = document.querySelector('#page3 .section:nth-child(1) .section-title');
+            if (kitchenSectionTitle && !kitchenSectionTitle.querySelector('.clone-menu-btn')) {
+                const cloneButton = document.createElement('button');
+                cloneButton.className = 'clone-menu-btn';
+                cloneButton.textContent = 'Clone Menu';
+                cloneButton.onclick = cloneAllMenuContent;
+                kitchenSectionTitle.appendChild(cloneButton);
+            }
+        }
+
+        // 3. Clone ALL Menu Content to Function Sheet
+        function cloneAllMenuContent() {
+            const menuOutput = document.getElementById('menuOutput');
+            const kitchenSection = document.querySelector('#page3 .section:nth-child(1) .editable-section');
+            
+            if (!menuOutput || !kitchenSection) {
+                console.error("Menu or Kitchen Section not found");
+                return;
+            }
+
+            // Clear existing content
+            kitchenSection.innerHTML = '';
+            
+            // Clone the formatted menu output
+            const clonedContent = menuOutput.cloneNode(true);
+            
+            // Remove any interactive elements that might have been copied
+            clonedContent.querySelectorAll('button, input, select, textarea').forEach(el => el.remove());
+            
+            // Add to kitchen section
+            kitchenSection.appendChild(clonedContent);
+            
+            // Adjust styles for better display in function sheet
+            kitchenSection.querySelectorAll('.category-title').forEach(el => {
+                el.style.fontSize = '15px';
+                el.style.fontWeight = 'bold';
+                el.style.margin = '10px 0 5px 0';
+            });
+            
+            kitchenSection.querySelectorAll('.menu-item, .menu-subtext').forEach(el => {
+                el.style.fontSize = '12px';
+                el.style.margin = '2px 0';
+                el.style.padding = '0';
+            });
+        }
+
+        // Initialize the button
+        addCloneMenuButton();
+        
+        // Re-add button if kitchen section content changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    addCloneMenuButton();
+                }
+            });
+        });
+        
+        const kitchenSection = document.querySelector('#page3 .section:nth-child(1)');
+        if (kitchenSection) {
+            observer.observe(kitchenSection, { childList: true, subtree: true });
+        }
+    }, 500); // Slightly longer delay to ensure everything is loaded
+});
+</script>
+<script>
+// ======================== MENU SYSTEM ========================
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait a moment to ensure all elements are loaded
+  setTimeout(function() {
+    // Find the toggle columns button in page2
+    const toggleButton = document.querySelector('.toggle-columns-button');
+    
+    if (toggleButton) {
+      // Create dropdown element
+      const dropdown = document.createElement('select');
+      dropdown.id = 'menuDropdown';
+      dropdown.style.cssText = 'padding:6px 12px;font-size:12px;border:1px solid #ddd;border-radius:4px;background:white;margin-left:10px;';
+      
+      // Add dropdown options
+      dropdown.innerHTML = `
+        <option value="">Select Menu</option>
+        <option value="arabic">Arabic Menu</option>
+        <option value="vip">VIP Menu</option>
+        <option value="international">International Menu</option>
+        <option value="italian">Italian Menu</option>
+      `;
+      
+      // Insert dropdown next to toggle button
+      toggleButton.parentNode.insertBefore(dropdown, toggleButton.nextSibling);
+
+      // Setup menu content templates
+      const predefinedMenus = {
+        arabic: {
+          name: "Arabic Menu",
+          content: `Salads (السلطات)  
+Fattoush (فتوش)  
+Tabbouleh (تبولة)  
+Jarjir Salad with Pomegranate Molasses (جرجير مع دبس الرمان)  
+
+Cold Appetizers (المقبلات الباردة)  
+Hummus ( حمص)  
+Mutabbal (متبل)  
+
+Hot Appetizers (المقبلات الساخنة)  
+Falafel ( فلافل)  
+Sambousek (Cheese) ( سمبوسة بالجبن)  
+Spinach Fatayer (فطاير السبانخ)  
+
+Main Dishes (الأطباق الرئيسية)  
+Chicken Mandi (مندي دجاج)  
+Lamb Ouzi with Rice ( أوزي لحم مع الأرز)  
+Chicken Kabsa (كبسة دجاج)  
+Bamia (Okra Stew) ( باميا)  
+
+Side Dishes ( الأطباق الجانبية)  
+Grilled Vegetables (خضار مشوية)  
+White Rice ( أرز أبيض)  
+
+Desserts (الحلويات)  
+Kunafa (كنافة)  
+Baklava ( بقلاوة)  
+Dates ( تمور)
+
+===========================================
+
+Customize Menu
+
+Soups (الحساء):  
+Lentil Soup ( شوربة العدس)  
+Chicken Vermicelli Soup (شوربة دجاج بالشعرية)  
+Tomato Soup (شوربة الطماطم)  
+Chicken Corn Soup (شوربة دجاج بالذرة)  
+Mushroom Soup ( شوربة الفطر)  
+Harira Soup ( شوربة الحريصة)  
+
+Salads (السلطات):  
+Fattoush (فتوش)  
+Tabbouleh (تبولة)  
+Rocca Salad with Pomegranate Molasses (جرجير بالرب الحامض)  
+Greek Salad (سلطة يونانية)  
+Cucumber Yogurt Salad (سلطة الزبادي والخيار)  
+Mango Salad (سلطة المانجو)  
+Beetroot Salad ( سلطة الشمندر)  
+Carrot and Apple Salad (سلطة الجزر والتفاح)  
+
+Cold Appetizers (المقبلات الباردة):  
+Hummus ( حمص)  
+Mutabbal (متبل)  
+Baba Ghanoush (بابا غنوج)  
+Muhammara ( محمرة)  
+Labneh with Olive Oil and Zaatar (لبنة بالزيت والزعتر)  
+Feta Cheese with Olives ( جبن الفيتا مع الزيتون)  
+Olives & Pickles (زيتون ومخللات)  
+Stuffed Grape Leaves (ورق عنب محشي)  
+
+Hot Appetizers (المقبلات الساخنة):  
+Falafel ( فلافل)  
+Sambousek (Meat or Cheese) (سمبوسة باللحم أو الجبن)  
+Spinach Fatayer (فطاير السبانخ)  
+Cheese Rolls (رولات الجبن)  
+Kibbeh ( كبة)  
+Grilled Halloumi with Zaatar (حلومي مشوي بالزعتر)  
+Shish Barak (شيش برك)  
+Cheese Manakeesh (مناقيش بالجبن)
+
+Main Dishes (الأطباق الرئيسية):  
+Chicken Mandi (مندي دجاج)  
+Lamb Ouzi with Rice ( أوزي لحم مع الأرز)  
+Chicken Kabsa (كبسة دجاج)  
+Lamb Machboos ( مجبوس لحم)  
+Shawarma ( شاورما)  
+Grilled Chicken Thighs with Arabic Spices ( أفخاذ دجاج مشوية بالتوابل العربية)  
+Kofta with Tomato Sauce (كفتة بالصلصة الحمراء)  
+Bamia (Okra Stew) ( باميا)  
+Sayadieh (Fish with Rice) (صيادية سمك)  
+Stuffed Chicken with Rice ( دجاج محشي بالأرز)  
+Beef Kebabs ( كباب لحم)  
+
+Side Dishes ( الأطباق الجانبية):  
+Grilled Vegetables (خضار مشوية)  
+White Rice ( أرز أبيض)  
+Rice Pilaf ( أرز بالزبدة)  
+Mujaddara (مجدرة)  
+Freekeh ( فريكة)  
+Potato Wedges (شرائح البطاطس المقلية)  
+Baked Potatoes with Garlic and Herbs (بطاطس مشوية بالثوم والأعشاب)  
+Arabic Bread (خبز عربي)  
+
+Desserts (الحلويات):  
+Kunafa (كنافة)  
+Baklava ( بقلاوة)  
+Basbousa ( بسبوسة)  
+Umm Ali (أم علي)  
+Mahalabia (مهلبية)  
+Rice Pudding (أرز بالحليب)  
+Atayef ( قطايف)  
+Dates ( تمور)  
+Halawet el Jibn (حلاوة الجبن)  
+Qatayef with Cream ( قطايف بالقشطة)`
+        },
+        vip: {
+          name: "VIP Menu",
+          content: `Classic Elegance Package
+
+Seafood
+Smoked Salmon Rosettes on Blinis
+Tuna Tartare Cones
+King Prawn Skewers
+
+Meat
+Mini Lamb Kofta Bites
+Chicken Truffle Mousse Profiteroles
+Prosciutto Wrapped Asparagus Tips
+
+Vegetarian
+Wild Mushroom Arancini
+Mini Caprese Skewers
+Beetroot Caviar Tartlets
+
+Sweet Finish
+Lemon Curd Tartlets
+Raspberry Panna Cotta Spoons
+
+Refreshments / Drinks
+Classic Mojito
+Freshly Squeezed Orange Juice
+
+===========================================
+
+Prestige Package
+
+Seafood
+Lobster Medallions on Brioche
+Seared Scallop Spoons
+Smoked Salmon Rosettes on Blinis
+Tuna Tartare Cones
+
+Meat
+Wagyu Beef Tartare on Crostini
+Mini Beef Wellington Bites
+Duck Rillettes on Brioche Toast
+Chicken Satay with Peanut Dip
+
+Vegetarian
+Burrata and Heirloom Tomato Bites
+Zucchini Rolls with Ricotta
+Mini Truffle Mac and Cheese Cups
+Parmesan Crisps with Rocket
+
+Sweet Finish
+Mini Opera Cakes
+Fruit Tartlets
+
+Refreshments / Drinks
+Passion Fruit Mojito
+Fresh Watermelon Juice
+
+===========================================
+
+Royal Indulgence Package
+
+Seafood
+Mini Lobster Rolls
+Oysters with Yuzu Granita
+Tuna Tartare Cones
+Caviar Blinis
+Grilled Octopus Skewers
+
+Meat
+Wagyu Beef Tartare on Crostini
+Mini Chateaubriand Sliders
+Mini Beef Wellington Bites
+Foie Gras Torchon on Brioche
+Duck and Orange Polenta Discs
+
+Vegetarian
+Truffle Potato Nests
+Burrata and Heirloom Tomato Bites
+Mini Sushi Rolls
+Mini Bao Buns with Crispy Duck
+Vietnamese Rice Paper Rolls
+
+Sweet Finish
+Gold Dusted Brownie Bites
+Champagne Jelly Cubes
+Mini Éclairs
+
+Refreshments / Drinks
+Blue Lagoon
+Lemon Mint Mojitos`
+        },
+        international: {
+          name: "International Menu Package",
+          content: `SILVER PACKAGE
+
+Breadbasket
+
+SOUP
+Wild Mushroom Creamy Soup ( V)
+
+COLD APPETIZER
+Arugula Pear and Blue Cheese with Walnuts (V)
+Chicken Caesar Salad (NV)
+Roasted Beef Salad (NV)
+
+HOT APPETIZER
+Chicken satay skewers (NV)
+Kibbeh (NV)
+Mini Falafel Balls (V)
+
+MAIN COURSES
+Mixed Grilled (NV)
+Chicken Tajine (NV)
+Grilled Fish with Lemon Butter Sauce (NV)
+Eggplant and Mushroom Stir Fry (V)
+
+SIDE DISHES
+Garlic Mashed potato (V)
+
+DESSERT
+Chocolate Brownies (V)
+Tiramisu (V)
+Crème Brule (V)
+
+SOFT DRINKS & WATER
+
+===========================================
+
+GOLD PACKAGE
+
+Breadbasket
+
+SOUP
+Seafood Chowder Soup (NV)
+
+COLD APPETIZER
+Grilled Teriyaki Chicken Salad (NV)
+Tuna Niçoise Salad (NV)
+Beetroot with Feta Cheese (V)
+Italian Chicken & Mango Salad (NV)
+
+Hot Appetizer
+Cheese Sticks (V)
+Mini Quiche (V)
+Fried Calamari (NV
+Stuffed Mushrooms (V)
+
+MAIN COURSES
+Grilled Salmon Teriyaki (NV)
+Baked Orange Chicken with Oven Paprika (NV)
+Vegetable Jalfrezi (V)
+Lamb Leg with Oriental Rice (NV)
+
+SIDE DISHES
+Jacket Potato (V)
+White Rice (V)
+
+DESSERT
+Muhalabiya (V)
+Creme Brulee (V)
+Lotus Cake (V)
+Basbosa (V)
+
+SOFT DRINKS & WATER
+
+===========================================
+
+PLATINUM PACKAGE
+
+Bread Basket
+
+SOUP
+Pumpkin and Ginger Soup (V)
+Chicken noodle soup (NV)
+
+COLD APPETIZER
+Greek Salad with Feta and Olives (V)
+Kale Salad with Walnuts, Mango & Strawberry (V)
+Chicken Caesar salad (NV)
+Mexican Salad with Nachos (V)
+Roasted Beet and Goat Cheese Salad (NV)
+
+HOT APPETIZER
+Chicken Samosa (NV)
+Vegetable Spring Roll (V)
+Shrimp Tempura (NV)
+Stuffed Wild Mushroom (V)
+Beef stay ( NV)
+
+MAIN COURSES
+Baked Salmon on a Bed of Cream & Spinach Basil (NV)
+Ravioli Pasta (V)
+Butter Chicken (NV)
+Grilled Prawns (NV)
+Beef Stroganoff (NV)
+
+SIDE DISHES
+Lyonnaise Potato (V)
+White Rice (V)
+
+DESSERT
+Creme Brulee (V)
+Pistachio Cake (V)
+Dates Cake (V)
+Kunafa (V)
+Rice Pudding (V)
+
+SOFT DRINKS & WATER
+
+===========================================
+
+Customize Menu
+
+Soups
+Chicken Soups (NV)
+Chicken Noodle Soup (NV)
+Thai Chicken Coconut Soup (NV)
+Korean Kimchi Tofu Stew (NV)
+Chicken Tortilla Soup (NV)
+Beef and Barley Soup (NV)
+Beef Pho (NV)
+Cream of Mushroom Soup (V)
+Tomato Basil Soup (V)
+Moroccan Spiced Lentil Soup (V)
+Seafood Chowder (NV)
+Pumpkin and Ginger Soup (V)
+Miso Soup with Tofu (V)
+Lobster Bisque (NV)
+Vietnamese Pho (Beef or Chicken) (NV)
+
+Salads
+Vegetarian Salads (V)
+Garden Salad with Balsamic Vinaigrette (V)
+Classic Caesar Salad (V)
+Greek Salad with Feta and Olives (V)
+Pasta Salad with Olives and Cherry Tomatoes (V)
+Coleslaw with Tangy Dressing (V)
+Caprese Salad with Basil Pesto (V)
+Quinoa and Roasted Veggie Salad (V)
+Spinach Strawberry and Feta Salad (V)
+Couscous Salad with Chickpeas (V)
+Asian Slaw with Sesame Dressing (V)
+Arugula Pear and Blue Cheese with Walnuts (V)
+Farro Salad with Roasted Beets and Feta (V)
+Avocado Caesar with Parmesan Crisps (V)
+Chickpea and Cucumber Salad (V)
+Tuna Niçoise Salad (NV)
+Mediterranean Couscous with Pomegranate (V)
+Roasted Beet and Goat Cheese Salad (V)
+Kale Apple and Walnut Salad (V)
+
+Hot Appetizers
+Chicken Satay Skewers (NV)
+Mini Chicken Shawarma Skewers (NV)
+BBQ Chicken Wings (NV)
+Mini Chicken Empanadas (NV)
+Mini Chicken Tikka Samosas (NV)
+Chicken Spring Rolls (NV)
+Korean BBQ Chicken Skewers (NV)
+Buffalo Chicken Bites (NV)
+Chicken Meatballs (NV)
+Mini Beef Wellington Bites (NV)
+Beef Kofta Skewers (NV)
+Mini Beef Sliders (NV)
+Beef Empanadas (NV)
+Beef Spring Rolls (NV)
+Beef Croquettes (NV)
+Mini Beef Meatballs (NV
+Mini Quiches (Spinach or Cheese) (V)
+Mini Falafel Balls (V)
+Mozzarella Stuffed Arancini (V)
+Mini Veggie Samosas (V)
+Spinach and Cheese Stuffed Mushrooms (V)
+Vegetable Spring Rolls (V)
+Truffle Mac and Cheese Balls (V)
+Mini Veggie Tarts (V)
+Stuffed Mushrooms with Herbed Cream Cheese (V)
+Bruschetta with Tomato and Basil (V)
+Mini Lobster Rolls (NV)
+Crab Cakes with Spicy Aioli (NV)
+Mini Empanadas (Spinach or Beef) (NV)
+Mini Gyoza (Chicken or Veg) (NV/V)
+Mini Sliders with Caramelized Onion (NV)`
+        },
+        italian: {
+          name: "Italian Menu",
+          content: `Italian Comfort Feast 
+
+Soup
+Minestrone Soup
+
+Salads
+Caprese Salad
+Insalata di Rucola
+Mixed Italian Salad
+Insalata di Pollo e Mele
+
+Main Dishes
+Spaghetti Aglio e Olio
+Pollo alla Parmigiana
+Lasagna Bolognese
+Margherita Pizza
+
+Side Dishes
+Garlic Bread
+Grilled Vegetables
+
+Desserts
+Tiramisu
+Biscotti
+Gelato Trio
+Panna Cotta
+
+Beverages
+Water & Soft Drinks
+
+===========================================
+
+The Ultimate Italian Indulgence
+
+Soup
+Zuppa di Pesce
+Crema di Asparagi
+
+Salads
+Insalata Caprese
+Insalata di Pollo e Rucola
+Insalata di Finocchi e Arance
+Insalata di Mare
+Insalata di Grano
+
+Hot Appetizers
+Carpaccio di Manzo
+Frittura di Pesce
+Polenta con Funghi
+Eggplant Rollatini
+Frittata di Zucchine
+
+Main Dishes
+Risotto ai Funghi
+Branzino al Forno
+Fettuccine Alfredo with Grilled Shrimp
+Pappardelle al Cinghiale
+Filetto di Manzo alla Griglia
+
+Side Dishes
+Grilled Vegetables
+Parmesan Roasted Potatoes
+Polenta with Cheese and Herbs
+
+Desserts
+Tiramisu
+Ricotta Cheesecake with Lemon Zest
+Cannoli
+Panna Cotta
+
+Beverages
+Water & Soft Drinks`
+        }
+      };
+
+      // Handle menu selection
+      dropdown.addEventListener('change', function() {
+        const selectedMenu = this.value;
+        if (selectedMenu && predefinedMenus[selectedMenu]) {
+          // Set the menu input value
+          const menuInput = document.getElementById('menuInput');
+          if (menuInput) {
+            menuInput.value = predefinedMenus[selectedMenu].content;
+          }
+          
+          // Click the format button to format it
+          const formatBtn = document.getElementById('formatBtn');
+          if (formatBtn) {
+            formatBtn.click();
+          }
+          
+          // Update the menu title
+          const menuTitle = document.querySelector('#page2 h2');
+          if (menuTitle) {
+            menuTitle.textContent = predefinedMenus[selectedMenu].name;
+          }
+        }
+      });
+    }
+  }, 300); // Small delay to ensure all elements are loaded
+});
+</script>
+
 </body>
 </html>
