@@ -2555,20 +2555,34 @@ document.addEventListener('DOMContentLoaded', function() {
       dropdown.id = 'menuDropdown';
       dropdown.style.cssText = 'padding:6px 12px;font-size:12px;border:1px solid #ddd;border-radius:4px;background:white;margin-left:10px;';
       
-      // Add dropdown options
-      dropdown.innerHTML = `
-        <option value="">Select Menu</option>
-        <option value="arabic">Arabic Menu</option>
-        <option value="vip">VIP Menu</option>
-        <option value="international">International Menu</option>
-        <option value="italian">Italian Menu</option>
-        <option value="canapes">Canapés Package Menu</option>
-      `;
+      // Define menu options in alphabetical order
+      const menuOptions = [
+        { value: 'arabic', text: 'Arabic Menu' },
+        { value: 'canapes', text: 'Canapés Package Menu' },
+        { value: 'chinese_japanese', text: 'Chinese & Japanese Experience Package' },
+        { value: 'glutenfree', text: 'Gluten Free Menu' },
+        { value: 'international', text: 'International Menu' },
+        { value: 'italian', text: 'Italian Menu' },
+        { value: 'vip', text: 'VIP Menu' }
+      ];
+
+      // Sort menu options alphabetically by text
+      menuOptions.sort((a, b) => a.text.localeCompare(b.text));
+
+      // Add default option
+      let dropdownHTML = `<option value="">Select Menu</option>`;
+      
+      // Add sorted menu options
+      menuOptions.forEach(option => {
+        dropdownHTML += `<option value="${option.value}">${option.text}</option>`;
+      });
+      
+      dropdown.innerHTML = dropdownHTML;
       
       // Insert dropdown next to toggle button
       toggleButton.parentNode.insertBefore(dropdown, toggleButton.nextSibling);
 
-      // Setup menu content templates
+      // Setup menu content templates (unchanged from previous version)
       const predefinedMenus = {
         arabic: {
           name: "Arabic Menu",
@@ -2678,96 +2692,284 @@ Dates ( تمور)
 Halawet el Jibn (حلاوة الجبن)  
 Qatayef with Cream ( قطايف بالقشطة)`
         },
-        vip: {
-          name: "VIP Menu",
-          content: `Classic Elegance Package
+        canapes: {
+          name: "Canapés Package Menu",
+          content: `Canapés Menu
+Lobster and Avocado Tartare
+Foie Gras on Brioche Toast
+Caviar and Crème Fraîche on Potato Rosti
+Truffle and Wild Mushroom Arancini Bowl
+Mini Wagyu Beef Sliders
+Goat Cheese and Beetroot Tart
+Tempura Shrimp with Mango Salsa
 
-Seafood
-Smoked Salmon Rosettes on Blinis
-Tuna Tartare Cones
-King Prawn Skewers
+Canapés Dessert
+Passion Fruit and Mango Panna Cotta
+Miniature Eclairs with Vanilla Cream
+Mini Lemon Meringue Tartlets
 
-Meat
-Mini Lamb Kofta Bites
-Chicken Truffle Mousse Profiteroles
-Prosciutto Wrapped Asparagus Tips
-
-Vegetarian
-Wild Mushroom Arancini
-Mini Caprese Skewers
-Beetroot Caviar Tartlets
-
-Sweet Finish
-Lemon Curd Tartlets
-Raspberry Panna Cotta Spoons
-
-Refreshments / Drinks
-Classic Mojito
-Freshly Squeezed Orange Juice
+Beverages
+Virgin Mojito
+Fruit Punch
+Shirley Temple
 
 ===========================================
 
-Prestige Package
+Customize Menu Selection
 
-Seafood
-Lobster Medallions on Brioche
-Seared Scallop Spoons
-Smoked Salmon Rosettes on Blinis
-Tuna Tartare Cones
+Canapés Menu
+Seared Tuna on Crispy Rice Cake 
+Smoked Salmon and Cream Cheese Blini
+Grilled Scallop on Cauliflower Purée 
+Prosciutto-wrapped Melon Bites
+Mini Quiche Lorraine
+Chèvre and Fig Crostini
+Tartare of Beef with Truffle Oil
+Petite Pavlova
 
-Meat
-Wagyu Beef Tartare on Crostini
-Mini Beef Wellington Bites
-Duck Rillettes on Brioche Toast
-Chicken Satay with Peanut Dip
+Canapés Dessert
+Chocolate Ganache Tartlets with Gold Dust
+Petite Pavlova with Fresh Berries
+Coconut Macaroons
+Raspberry and White Chocolate Cheesecake Bites
+Mini Crème Brûlée Cups
+Churros with Cinnamon Sugar and Chocolate Dip
+Tiramisu Bites
+Strawberry and Mascarpone Crostini
+Mini Fruit Tartlets with Almond Cream
+Profiteroles with Hazelnut Cream
+Dark Chocolate and Raspberry Truffles
+Lemon and Blueberry Madeleines
 
-Vegetarian
-Burrata and Heirloom Tomato Bites
-Zucchini Rolls with Ricotta
-Mini Truffle Mac and Cheese Cups
-Parmesan Crisps with Rocket
+===========================================
 
-Sweet Finish
-Mini Opera Cakes
+Finger Food Option 1
+
+Sandwiches
+Chicken Burger
+Tuna Sandwich in Bagel Bread
+Ultimate Vegetable Sandwich
+(Cucumber, Rocca, Avocado, Tomato, Ciabatta Bread)
+Mediterranean Style Steak Sandwich (Baguette Bread)
+
+Salads
+Rocca Salad
+Chicken Caesar Salad
+Kani Salad (Iceberg, Cucumber, Crab Meat, Corn)
+
+Hot Mezzeh
+Kibbeh
+Potato Croquettes
+Chicken Gyoza
+
+Desserts
+Chocolate Brownies 
+Vanilla Muffin 
+Tiramisu
+
+Beverages
+Fresh Juices 
+Mineral Water
+
+===========================================
+
+Finger Food Option 2
+
+Canapes
+Chicken Guacamole Savory
+Shrimp w/ Cocktail Shot
+Goat Cheese Figs Savory
+Mini Spinach Emmental Quiche Savory
+
+Sandwich
+Mini Beef Slider
+Mexican Chicken Sandwich
+Caprese Sandwich
+
+Salad
+Waldorf Salad
+Quinoa Fruity Salad
+
+Hot Mezzeh
+Mini Pizza
+Chicken Shawarma Roll
+
+Dessert
 Fruit Tartlets
+Apple Crumble
+Creme Brulee
 
-Refreshments / Drinks
-Passion Fruit Mojito
-Fresh Watermelon Juice
+Beverages
+Fresh Juices
+Mineral Water
 
 ===========================================
 
-Royal Indulgence Package
+Customize Menu Selection
 
-Seafood
-Mini Lobster Rolls
-Oysters with Yuzu Granita
-Tuna Tartare Cones
-Caviar Blinis
-Grilled Octopus Skewers
+Pastry Selection
+Assorted Danish - 
+(Strawberry / Kiwi / Blueberry)
+Mini Assorted Pizza -
+(Margherita / Cheese / Pepperoni)
 
-Meat
-Wagyu Beef Tartare on Crostini
-Mini Chateaubriand Sliders
-Mini Beef Wellington Bites
-Foie Gras Torchon on Brioche
-Duck and Orange Polenta Discs
+Sandwich Selection
+Double Cheese Sandwich
+Labneh with Zaatar Sandwich
+Mixed Vegetable Sandwich in Bagel Bread
+Club Sandwich in Brown Toast Bread
+Brie Cheese Sandwich
+French Toast
 
-Vegetarian
-Truffle Potato Nests
-Burrata and Heirloom Tomato Bites
-Mini Sushi Rolls
-Mini Bao Buns with Crispy Duck
-Vietnamese Rice Paper Rolls
+Hot Dishes
+Vegetable or Cheese Spring Roll
+Chicken Puff Roll
+Cheese Ragag
+Dango
+Cheese Roll
 
-Sweet Finish
-Gold Dusted Brownie Bites
-Champagne Jelly Cubes
-Mini Éclairs
+Desserts
+Banana Cake 
+Chocolate Brownies 
+English Cake`
+        },
+        chinese_japanese: {
+          name: "Chinese & Japanese Experience Package",
+          content: `Soup
+Hot and Sour Soup
 
-Refreshments / Drinks
-Blue Lagoon
-Lemon Mint Mojitos`
+Salads
+Cucumber Sesame Salad
+Asian Slaw with Ginger Dressing
+Cold Glass Noodle Salad with Vegetables
+
+Hot Appetizers
+Vegetable Spring Rolls
+Chicken Dumplings
+Steamed Shrimp Toast
+
+Main Dishes
+Sweet and Sour Chicken
+Mongolian Beef
+Stir-Fried Noodles with Vegetables
+Spicy Mapo Tofu
+
+Side Dish
+Yangzhou Fried Rice with Egg
+Chicken
+Shrimp
+
+Desserts
+Mango Pudding Cups
+Asian Fruit Salad with Lychee
+Fortune Cookies
+
+===========================================
+
+Customize Menu
+
+Soup
+Seafood Hot Pot Soup
+Chicken Wonton Soup
+Pumpkin and Ginger Soup (Asian style)
+
+Unique Salads
+Crispy Lotus Root Salad
+Green Papaya Salad with Lime and Peanuts
+Thai Mango Salad with Chili and Lime
+Pickled Cabbage and Carrot Slaw
+
+Hot Appetizers
+Lobster Spring Rolls
+Pan-Seared Gyoza (Pork or Veggie)
+Char Siu Chicken Skewers
+Mini Bao Buns (Hoisin Chicken or BBQ Duck)
+
+Main Dishes
+Peking Duck with Pancakes and Hoisin Sauce
+Szechuan Crispy Fish Fillet
+Honey Walnut Shrimp
+Black Bean Chicken with Bell Peppers
+Braised Eggplant with Garlic Sauce
+Teriyaki Beef Stir-Fry
+Shrimp and Egg Fried Rice with Truffle Oil
+Sticky Rice with Chinese Sausage
+Cantonese Chow Mein
+Spicy Garlic Fried Rice
+Eggplant and Tofu Stir-Fry
+
+Desserts
+Matcha Cheesecake Bites
+Fried Banana with Honey
+Sticky Rice with Mango (Thai-style fusion)
+Lychee Jelly Cups
+Steamed Coconut Milk Cake`
+        },
+        glutenfree: {
+          name: "Gluten Free Menu",
+          content: `Soup
+Lentil Soup
+
+Salads
+Quinoa Tabbouleh
+Greek Salad
+Kale and Apple Salad
+
+Hot Appetizers
+Stuffed Mini Bell Peppers
+Falafel with Tahini
+Grilled Zucchini Rolls with Goat Cheese
+
+Main Dishes
+Grilled Chicken with Lemon Herb
+Baked Salmon with Dill and Lemon
+Vegan Stuffed Peppers
+Lamb Kofta with Yogurt Sauce
+
+Side Dish
+Herb-Roasted Potatoes
+
+Desserts
+Flourless Chocolate Cake
+Mini Pavlovas with Fresh Berries
+Gluten-Free Brownies
+
+Beverages
+Fresh Orange Juice
+Water
+
+===========================================
+
+Customize Menu
+
+Main Dishes
+Grilled Chicken with Lemon Herb
+Chicken Shawarma
+Baked Salmon with Dill and Lemon
+Beef Tenderloin with Red Wine Glaze
+Vegan Stuffed Peppers
+Coconut Curry Chicken
+Lamb Kofta with Yogurt Sauce
+Chickpea and Spinach Curry
+Grilled Eggplant Parmesan
+
+Side Dishes
+Herb Roasted Potatoes
+Wild Rice Pilaf
+Creamy Polenta with Parmesan
+Garlic Mashed Sweet Potatoes
+Grilled Vegetable Medley
+Steamed Green Beans with Toasted Almonds
+
+Desserts
+Flourless Chocolate Cake
+Mini Pavlovas with Fresh Berries
+Almond Cookies
+Coconut Macaroons
+Chia Pudding Cups
+Gluten-Free Brownies
+Mini Cheesecakes with Gluten-Free Crust
+Rice Pudding with Rose Water and Pistachios`
         },
         international: {
           name: "International Menu Package",
@@ -3037,146 +3239,96 @@ Panna Cotta
 Beverages
 Water & Soft Drinks`
         },
-        canapes: {
-          name: "Canapés Package Menu",
-          content: `Canapés Menu
-Lobster and Avocado Tartare
-Foie Gras on Brioche Toast
-Caviar and Crème Fraîche on Potato Rosti
-Truffle and Wild Mushroom Arancini Bowl
-Mini Wagyu Beef Sliders
-Goat Cheese and Beetroot Tart
-Tempura Shrimp with Mango Salsa
+        vip: {
+          name: "VIP Menu",
+          content: `Classic Elegance Package
 
-Canapés Dessert
-Passion Fruit and Mango Panna Cotta
-Miniature Eclairs with Vanilla Cream
-Mini Lemon Meringue Tartlets
+Seafood
+Smoked Salmon Rosettes on Blinis
+Tuna Tartare Cones
+King Prawn Skewers
 
-Beverages
-Virgin Mojito
-Fruit Punch
-Shirley Temple
+Meat
+Mini Lamb Kofta Bites
+Chicken Truffle Mousse Profiteroles
+Prosciutto Wrapped Asparagus Tips
 
----------------------------------
+Vegetarian
+Wild Mushroom Arancini
+Mini Caprese Skewers
+Beetroot Caviar Tartlets
 
-Customize Menu Selection
+Sweet Finish
+Lemon Curd Tartlets
+Raspberry Panna Cotta Spoons
 
-Canapés Menu
-Seared Tuna on Crispy Rice Cake 
-Smoked Salmon and Cream Cheese Blini
-Grilled Scallop on Cauliflower Purée 
-Prosciutto-wrapped Melon Bites
-Mini Quiche Lorraine
-Chèvre and Fig Crostini
-Tartare of Beef with Truffle Oil
-Petite Pavlova
+Refreshments / Drinks
+Classic Mojito
+Freshly Squeezed Orange Juice
 
-Canapés Dessert
-Chocolate Ganache Tartlets with Gold Dust
-Petite Pavlova with Fresh Berries
-Coconut Macaroons
-Raspberry and White Chocolate Cheesecake Bites
-Mini Crème Brûlée Cups
-Churros with Cinnamon Sugar and Chocolate Dip
-Tiramisu Bites
-Strawberry and Mascarpone Crostini
-Mini Fruit Tartlets with Almond Cream
-Profiteroles with Hazelnut Cream
-Dark Chocolate and Raspberry Truffles
-Lemon and Blueberry Madeleines
+===========================================
 
-------------------------------
+Prestige Package
 
-Finger Food Option 1
+Seafood
+Lobster Medallions on Brioche
+Seared Scallop Spoons
+Smoked Salmon Rosettes on Blinis
+Tuna Tartare Cones
 
-Sandwiches
-Chicken Burger
-Tuna Sandwich in Bagel Bread
-Ultimate Vegetable Sandwich
-(Cucumber, Rocca, Avocado, Tomato, Ciabatta Bread)
-Mediterranean Style Steak Sandwich (Baguette Bread)
+Meat
+Wagyu Beef Tartare on Crostini
+Mini Beef Wellington Bites
+Duck Rillettes on Brioche Toast
+Chicken Satay with Peanut Dip
 
-Salads
-Rocca Salad
-Chicken Caesar Salad
-Kani Salad (Iceberg, Cucumber, Crab Meat, Corn)
+Vegetarian
+Burrata and Heirloom Tomato Bites
+Zucchini Rolls with Ricotta
+Mini Truffle Mac and Cheese Cups
+Parmesan Crisps with Rocket
 
-Hot Mezzeh
-Kibbeh
-Potato Croquettes
-Chicken Gyoza
-
-Desserts
-Chocolate Brownies 
-Vanilla Muffin 
-Tiramisu
-
-Beverages
-Fresh Juices 
-Mineral Water
-
----------------------------------------
-
-Finger Food Option 2
-
-Canapes
-Chicken Guacamole Savory
-Shrimp w/ Cocktail Shot
-Goat Cheese Figs Savory
-Mini Spinach Emmental Quiche Savory
-
-Sandwich
-Mini Beef Slider
-Mexican Chicken Sandwich
-Caprese Sandwich
-
-Salad
-Waldorf Salad
-Quinoa Fruity Salad
-
-Hot Mezzeh
-Mini Pizza
-Chicken Shawarma Roll
-
-Dessert
+Sweet Finish
+Mini Opera Cakes
 Fruit Tartlets
-Apple Crumble
-Creme Brulee
 
-Beverages
-Fresh Juices
-Mineral Water
+Refreshments / Drinks
+Passion Fruit Mojito
+Fresh Watermelon Juice
 
-----------------------------
+===========================================
 
-Customize Menu Selection
+Royal Indulgence Package
 
-Pastry Selection
-Assorted Danish - 
-(Strawberry / Kiwi / Blueberry)
-Mini Assorted Pizza -
-(Margherita / Cheese / Pepperoni)
+Seafood
+Mini Lobster Rolls
+Oysters with Yuzu Granita
+Tuna Tartare Cones
+Caviar Blinis
+Grilled Octopus Skewers
 
-Sandwich Selection
-Double Cheese Sandwich
-Labneh with Zaatar Sandwich
-Mixed Vegetable Sandwich in Bagel Bread
-Club Sandwich in Brown Toast Bread
-Brie Cheese Sandwich
-French Toast
+Meat
+Wagyu Beef Tartare on Crostini
+Mini Chateaubriand Sliders
+Mini Beef Wellington Bites
+Foie Gras Torchon on Brioche
+Duck and Orange Polenta Discs
 
-Hot Dishes
-Vegetable or Cheese Spring Roll
-Chicken Puff Roll
-Cheese Ragag
-Dango
-Cheese Roll
+Vegetarian
+Truffle Potato Nests
+Burrata and Heirloom Tomato Bites
+Mini Sushi Rolls
+Mini Bao Buns with Crispy Duck
+Vietnamese Rice Paper Rolls
 
-Desserts
-Banana Cake 
-Chocolate Brownies 
-English Cake`
+Sweet Finish
+Gold Dusted Brownie Bites
+Champagne Jelly Cubes
+Mini Éclairs
+
+Refreshments / Drinks
+Blue Lagoon
+Lemon Mint Mojitos`
         }
       };
 
