@@ -2563,6 +2563,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { value: 'glutenfree', text: 'Gluten Free Menu' },
         { value: 'international', text: 'International Menu' },
         { value: 'italian', text: 'Italian Menu' },
+        { value: 'kids', text: 'Kids Menu' },
+        { value: 'pureveg', text: 'Pure Veg Menu' },
         { value: 'vip', text: 'VIP Menu' }
       ];
 
@@ -2582,7 +2584,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Insert dropdown next to toggle button
       toggleButton.parentNode.insertBefore(dropdown, toggleButton.nextSibling);
 
-      // Setup menu content templates (unchanged from previous version)
+      // Setup menu content templates
       const predefinedMenus = {
         arabic: {
           name: "Arabic Menu",
@@ -3239,6 +3241,136 @@ Panna Cotta
 Beverages
 Water & Soft Drinks`
         },
+        kids: {
+          name: "Kids Menu",
+          content: `Savory Bites
+Mini Pizzas
+Chicken Nuggets
+Mac & Cheese Bites
+Mini Hot Dogs
+Potato Croquets
+
+Mini Meals
+Mini Sandwich Turkey & Cheese
+Pasta Cups with Marinara Sauce
+Chicken Slider
+
+Desserts
+Mini Cupcakes
+Brownie Bites
+Fruit Skewers with Marshmallows
+Cookies
+
+Drinks
+Mango Juice
+Orange Juice
+Water`
+        },
+        pureveg: {
+          name: "Pure Veg Menu",
+          content: `Pure Vegetarian Breakfast Package
+
+Salads
+Quinoa Tabbouleh
+Cucumber Yogurt Raita
+Avocado Cherry Tomato
+
+Hot Appetizers
+Spinach Cheese Puff
+Falafel with Tahini
+Zaatar Cheese Manakeesh
+
+Main Dishes
+Idli with Chutneys
+Stuffed Paratha with Chutneys
+Potato Pea Samosa
+Paneer Bhurji with Pav
+
+Desserts
+Date Coconut Truffles
+Carrot Halwa
+
+Beverages
+Water & Soft Drinks
+
+===========================================
+
+Pure Vegetarian Lunch / Dinner Package
+
+Soup
+Tomato Basil
+
+Salads
+Greek (No Feta)
+Chickpea Mint
+Beetroot Orange
+
+Hot Appetizers
+Vegetable Spring Rolls
+Corn Cheese Balls
+Batata Harra
+
+Main Dishes
+Vegetable Biryani
+Penne Tomato Basil
+Stuffed Bell Peppers
+Grilled Halloumi
+
+Desserts
+Mango Mousse
+Chocolate Brownie
+
+Beverages
+Water & Soft Drinks
+
+===========================================
+
+Customize Menu
+
+Soup
+Lentil Spinach
+Broccoli Almond
+Creamy Pumpkin
+Sweet Corn & Carrot
+Tomato Basil
+
+Salad
+Greek (No Feta)
+Chickpea Mint
+Beetroot Orange
+Asian Cabbage Slaw
+Green Bean Tomato
+Roasted Pumpkin Arugula
+Watermelon Feta (vegan on request)
+
+Hot Appetizer
+Vegetable Spring Rolls
+Corn Cheese Balls
+Batata Harra
+Stuffed Mushrooms
+Paneer Tikka
+Mini Veggie Kebabs
+Herbed Polenta Bites
+Fresh Fruit Tart
+
+Main Dish
+Vegetable Biryani
+Penne Tomato Basil
+Stuffed Bell Peppers
+Grilled Halloumi
+Thai Green Curry with Tofu
+Spinach Ricotta Lasagna
+Vegetable Kofta in Tomato Gravy
+Mushroom Stroganoff with Rice
+
+Dessert
+Mango Mousse
+Chocolate Brownie
+Pistachio Milk Cake
+Rose Cardamom Panna Cotta
+Gulab Jamun
+Fresh Fruit Tart`
+        },
         vip: {
           name: "VIP Menu",
           content: `Classic Elegance Package
@@ -3359,6 +3491,5 @@ Lemon Mint Mojitos`
   }, 300); // Small delay to ensure all elements are loaded
 });
 </script>
-
 </body>
 </html>
