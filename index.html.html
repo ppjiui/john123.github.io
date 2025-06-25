@@ -59,8 +59,7 @@
             font-weight: bold;
         }
         .details-table {
-            width: 55%; /* table width */
-	    table-layout: fixed; /* Ensures consistent column widths */
+            width: 45%;
             border: 1px solid #ddd;
             border-collapse: collapse;
         }
@@ -1961,6 +1960,7 @@ const dataManager = {
     init: function() {
         this.createControls();
         this.setupEventListeners();
+        this.updateDropdown();
         this.addFontAwesome();
         this.setupTableListeners();
     },
@@ -1982,6 +1982,27 @@ const dataManager = {
             gap: 10px; 
             align-items: center;
         `;
+
+        // Create dropdown
+        const dropdown = document.createElement('select');
+        dropdown.id = 'savedDataDropdown';
+        dropdown.style.cssText = 'padding: 5px; min-width: 250px;';
+        dropdown.innerHTML = '<option value="">Select saved client</option>';
+        controlsDiv.appendChild(dropdown);
+
+        // Create Load button
+        const loadBtn = document.createElement('button');
+        loadBtn.id = 'loadSavedBtn';
+        loadBtn.textContent = 'Load';
+        loadBtn.style.cssText = `
+            padding: 5px 10px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+        `;
+        controlsDiv.appendChild(loadBtn);
 
         // Create Save All button
         const saveBtn = document.createElement('button');
@@ -2015,8 +2036,31 @@ const dataManager = {
         document.body.appendChild(controlsDiv);
     },
 
+    // Format date with AM/PM time
+    formatDateTime: function(dateString) {
+        const date = new Date(dateString);
+        const options = { 
+            month: 'short', 
+            day: 'numeric', 
+            year: 'numeric',
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true
+        };
+        return date.toLocaleString('en-US', options);
+    },
+
     // Set up all event listeners
     setupEventListeners: function() {
+        document.getElementById('loadSavedBtn').addEventListener('click', () => {
+            const selectedId = document.getElementById('savedDataDropdown').value;
+            if (selectedId) {
+                this.loadSavedData(selectedId);
+            } else {
+                alert('Please select a client to load');
+            }
+        });
+
         document.getElementById('exportBtn').addEventListener('click', () => {
             this.saveCurrentData();
         });
@@ -2026,10 +2070,10 @@ const dataManager = {
         });
     },
 
-    // Get all editable data from the page
+    // Get all editable data from the page (UPDATED TO INCLUDE MENU)
     getAllEditableData: function() {
         const data = {
-            version: '1.6',
+            version: '1.6', // Updated version
             timestamp: new Date().toISOString(),
             sections: {}
         };
@@ -2064,7 +2108,7 @@ const dataManager = {
             }
         }
         
-        // MENU SYSTEM
+        // MENU SYSTEM (NEWLY ADDED)
         data.sections.menuSystem = {
             input: document.getElementById('menuInput')?.value || '',
             output: document.getElementById('menuOutput')?.innerHTML || '',
@@ -2126,9 +2170,12 @@ const dataManager = {
         });
     },
 
-    // Restore all data
+    // Restore all data (UPDATED TO HANDLE MENU)
     restoreAllData: function(data) {
-        if (!data || !data.sections) return;
+        if (!data || !data.sections) {
+            alert('Invalid data format');
+            return;
+        }
 
         // Restore quotation header
         this.restoreElementContent('tr:nth-child(2) td.editable-field', data.sections.quotationHeader?.clientName);
@@ -2187,7 +2234,7 @@ const dataManager = {
             });
         }
         
-        // RESTORE MENU SYSTEM
+        // RESTORE MENU SYSTEM (NEWLY ADDED)
         if (data.sections.menuSystem) {
             const menuInput = document.getElementById('menuInput');
             const menuOutput = document.getElementById('menuOutput');
@@ -2198,8 +2245,10 @@ const dataManager = {
             
             if (menuOutput) {
                 if (data.sections.menuSystem.output) {
+                    // Restore formatted output if it exists
                     menuOutput.innerHTML = data.sections.menuSystem.output;
                 } else if (menuInput.value && formatBtn) {
+                    // Auto-format if there's input but no output
                     formatBtn.click();
                 }
             }
@@ -2212,7 +2261,7 @@ const dataManager = {
                     const isCurrentlyDouble = menuColumns.classList.contains('double-column');
                     
                     if (shouldBeDouble !== isCurrentlyDouble) {
-                        toggleBtn.click();
+                        toggleBtn.click(); // Toggle if needed
                     }
                 }
             }
@@ -2264,7 +2313,7 @@ const dataManager = {
             }
         }
         
-        // Recalculate totals and setup event listeners
+        // Recalculate totals and setup event listeners after a short delay
         setTimeout(() => {
             this.setupTableListeners();
             if (typeof calculateTotals === 'function') calculateTotals();
@@ -2288,9 +2337,27 @@ const dataManager = {
         try {
             const data = this.getAllEditableData();
             const saveName = data.sections.quotationHeader?.clientName?.text || "Unnamed " + new Date().toLocaleString();
+            
+            // Save to localStorage
+            const allSaves = JSON.parse(localStorage.getItem('cateringSaves')) || {};
+            const saveId = 'save_' + Date.now();
+            allSaves[saveId] = {
+                name: saveName,
+                data: data,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('cateringSaves', JSON.stringify(allSaves));
+            
+            // Export as file
             this.exportAsFile(data, saveName);
+            
+            // Update dropdown
+            this.updateDropdown();
+            
+            alert(`Saved "${saveName}" to both browser memory and file!`);
         } catch (error) {
             console.error('Error saving data:', error);
+            alert('Error saving data: ' + error.message);
         }
     },
     
@@ -2318,6 +2385,7 @@ const dataManager = {
             }, 100);
         } catch (error) {
             console.error('Error exporting file:', error);
+            alert('Error exporting file: ' + error.message);
         }
     },
 
@@ -2335,14 +2403,42 @@ const dataManager = {
                 try {
                     const data = JSON.parse(event.target.result);
                     this.restoreAllData(data);
+                    alert('Data imported successfully!');
                 } catch (error) {
+                    alert('Error importing file: ' + error.message);
                     console.error(error);
                 }
             };
+            reader.onerror = () => alert('Error reading file');
             reader.readAsText(file);
         };
         
         input.click();
+    },
+
+    loadSavedData: function(saveId) {
+        const allSaves = JSON.parse(localStorage.getItem('cateringSaves')) || {};
+        const saveData = allSaves[saveId];
+        
+        if (saveData && saveData.data) {
+            if (confirm(`Load data for "${saveData.name}"?`)) {
+                this.restoreAllData(saveData.data);
+            }
+        }
+    },
+
+    updateDropdown: function() {
+        const dropdown = document.getElementById('savedDataDropdown');
+        const allSaves = JSON.parse(localStorage.getItem('cateringSaves')) || {};
+        
+        dropdown.innerHTML = '<option value="">Select saved client</option>';
+        
+        for (const [id, save] of Object.entries(allSaves)) {
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = `${save.name} (${this.formatDateTime(save.timestamp)})`;
+            dropdown.appendChild(option);
+        }
     },
 
     setupTableListeners: function() {
